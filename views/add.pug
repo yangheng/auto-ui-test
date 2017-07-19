@@ -1,0 +1,29 @@
+extends layout
+
+block append head
+    title= title
+
+block content
+  .container
+      form(method='POST' action='/add')
+        .form-group.row
+            label.col-2.col-form-label 测试案例名称
+            .col-10
+                input.form-control
+        .form-group.row
+                    label.col-2.col-form-label POC项目地址
+                    .col-10
+                        input.form-control
+        .form-group.row
+            label.col-2.col-form-label 上传测试案例文件
+            .col-10
+                label.custom-file
+                    input.custom-file-input(type="file" id="file")
+                    span.custom-file-control
+
+
+        .form-group.row
+                    button.btn.btn-success.btn-block(onclick='start(event)') 提交
+
+
+

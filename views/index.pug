@@ -1,0 +1,43 @@
+extends layout
+
+block append head
+    title= title
+    link(rel='stylesheet', href='/highlight/styles/monokai-sublime.css')
+    script(src='/highlight/highlight.pack.js')
+    script(src='/javascripts/index.js')
+    script(type='text/javascript').
+        hljs.initHighlightingOnLoad();
+
+
+block content
+  .container
+      .alert.alert-danger 需要选择要执行的测试案例
+      form(method='POST' action='/start')
+        .row.table-inverse.itemWrap
+            .col #
+            .col 测试案例
+            .col 操作
+            .col 加入
+
+        each file, index in files
+            .item
+                .row.itemWrap
+                    .col #{index}
+                    .col #{file.name}
+                    .col
+                       a(onclick='showCode(this)') 查看代码
+                    .col
+                       .form-check
+                          label.form-check-label
+                            input(type='checkbox', name='case',value='#{file.name}')
+
+                .row
+                    .codeWrap
+                       pre
+                         code.javascript #{code}
+
+        .row
+            button.btn.btn-success.btn-block(onclick='start(event)') 开始测试
+
+
+
