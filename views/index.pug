@@ -12,7 +12,7 @@ block append head
 block content
   .container
       .alert.alert-danger 需要选择要执行的测试案例
-      form(method='POST' action='/start')
+      form(method='POST' action='/start' )
         .row.table-inverse.itemWrap
             .col #
             .col 测试案例
@@ -29,12 +29,30 @@ block content
                     .col
                        .form-check
                           label.form-check-label
-                            input(type='checkbox', name='case',value='#{file.name}')
+                            input(type='checkbox', name='case',value=`${file.filePath}`)
 
                 .row
                     .codeWrap
                        pre
-                         code.javascript #{code}
+                         code.javascript #{file.code}
+
+
+
+        .form-group.row
+            label.col-2.col-form-label 选择测试类型
+            .col-10
+
+                .form-check.form-check-inline
+                    label.form-check-label
+                        input.form-check-input(type="radio" name="platformName" id="platformName" value="case" checked="checked")
+                        span 案例库
+
+
+                .form-check.form-check-inline
+                    label.form-check-label
+                        input.form-check-input(type="radio" name="platformName" id="platformName" value="poc")
+                        span POC
+
 
         .row
             button.btn.btn-success.btn-block(onclick='start(event)') 开始测试

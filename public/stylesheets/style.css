@@ -37,6 +37,9 @@ nav{
 .alert{
   display: none;
 }
+.alert.block{
+  display: block;
+}
 pre {
   position: relative;
   margin-bottom: 24px;

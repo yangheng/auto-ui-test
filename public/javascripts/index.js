@@ -18,9 +18,22 @@ function start(event) {
     var cases= Array.from(document.forms[0].case)
 
     if(cases.some((input)=>{return input.checked})){
-
+        document.forms[0].submit()
     }else{
         var alerts =  document.querySelector(".alert")
+        alerts.style.display='block'
+        setTimeout(()=>{alerts.style.display='none'},2000)
+    }
+}
+function add(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    var form = document.querySelector('form');
+    if(form.name.value && form.project_url.value&&form.file.files.length>0){
+        form.submit();
+    }else{
+        var alerts =  document.querySelector(".alert")
+        alerts.innerText= "请补全提交的信息"
         alerts.style.display='block'
         setTimeout(()=>{alerts.style.display='none'},2000)
     }

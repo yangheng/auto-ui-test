@@ -1,17 +1,9 @@
 {
-  "file":[
-    {
-      "name":"abcdss"
-    },
-    {
-      "name":"abcdss"
-    },
-    {
-      "name":"abcdss"
-    },
-    {
-      "name":"abcdss"
-    }
-  ],
-  "casePath": "upload"
+  "tempCasePath":"temp",
+  "caseHooks":{
+    "dir":"hooks",
+    "poc":"suite-poc.js",
+    "case":"suite-cases.js"
+  },
+  "reportPath":"report"
 }
