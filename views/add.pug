@@ -12,7 +12,23 @@ block content
             .col-10
                 input.form-control(name="name")
         .form-group.row
-                    label.col-2.col-form-label POC项目地址
+                            label.col-2.col-form-label 选择测试类型
+                            .col-10
+
+                                .form-check.form-check-inline
+                                    label.form-check-label
+                                        input.form-check-input(type="radio" name="type" id="platformName" value="case" checked="checked")
+                                        span 案例库
+
+
+                                .form-check.form-check-inline
+                                    label.form-check-label
+                                        input.form-check-input(type="radio" name="type" id="platformName" value="poc")
+                                        span POC
+
+
+        .form-group.row
+                    label.col-2.col-form-label POC项目名称/案例库地址
                     .col-10
                         input.form-control(name="project_url")
         .form-group.row
@@ -22,9 +38,24 @@ block content
                     input(type="file" id="file" accept=".js" name='case' multiple)
 
 
+        .form-group.row
+                            label.col-2.col-form-label 选择测试类型
+                            .col-10
+
+                                .form-check.form-check-inline
+                                    label.form-check-label
+                                        input.form-check-input(type="radio" name="platform" id="platformName" value="android" )
+                                        span 安卓
+
+
+                                .form-check.form-check-inline
+                                    label.form-check-label
+                                        input.form-check-input(type="radio" name="platform" id="platformName" value="ios" checked="checked")
+                                        span iPhone
 
         .form-group.row
                     button.btn.btn-success.btn-block(onclick='add(event)') 提交
+
 
 
 

@@ -36,10 +36,12 @@ router.get('/',(req,res,next)=>{
 })
 
 router.post('/',(req, res, next)=>{
- let fileName = merge(req.body.case,req.body.platformName,Date.now()+'')
- reportName=Date.now()+'-'+'report'
+ let tempName = Date.now()+'';
+ let fileName = merge(JSON.parse(req.body.cases),tempName)
+ reportName= tempName+'-'+'report'
  startMocha(reportName,fileName)
- res.redirect("/start")
+    res.json({result:true})
+ //res.redirect("/start")
 })
 
 

@@ -15,15 +15,25 @@ function showCode(em) {
 function start(event) {
     event.preventDefault()
     event.stopPropagation()
-    var cases= Array.from(document.forms[0].case)
-
-    if(cases.some((input)=>{return input.checked})){
-        document.forms[0].submit()
-    }else{
+    if($('input:checked').length==0){
         var alerts =  document.querySelector(".alert")
         alerts.style.display='block'
         setTimeout(()=>{alerts.style.display='none'},2000)
+    }else{
+        var cases = []
+        $('input:checked').map(function (input) {
+            cases.push($(this).data('val'))
+        })
+        $.post('/start',{cases:JSON.stringify(cases)}).then(function (res) {
+            if(res.result){
+                window.location.href= '/start'
+            }else{
+                alert('报错了')
+            }
+        })
     }
+
+
 }
 function add(event) {
     event.preventDefault()
