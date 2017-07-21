@@ -4,6 +4,7 @@ block append head
     title= title
     link(rel='stylesheet', href='/highlight/styles/monokai-sublime.css')
     script(src='/highlight/highlight.pack.js')
+    script(src='/javascripts/jquery.js')
     script(src='/javascripts/index.js')
     script(type='text/javascript').
         hljs.initHighlightingOnLoad();
@@ -16,6 +17,8 @@ block content
         .row.table-inverse.itemWrap
             .col #
             .col 测试案例
+            .col 测试设备
+            .col 测试目标
             .col 操作
             .col 加入
 
@@ -24,12 +27,14 @@ block content
                 .row.itemWrap
                     .col #{index}
                     .col #{file.name}
+                    .col #{file.platform}
+                    .col #{file.type}
                     .col
                        a(onclick='showCode(this)') 查看代码
                     .col
                        .form-check
                           label.form-check-label
-                            input(type='checkbox', name='case',value=`${file.filePath}`)
+                            input(type='checkbox', name='case',value=`${file.filePath}` data-val= JSON.stringify(file))
 
                 .row
                     .codeWrap
@@ -38,20 +43,15 @@ block content
 
 
 
-        .form-group.row
-            label.col-2.col-form-label 选择测试类型
-            .col-10
+        .modal.fade(id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true")
+            .modal-dialog(role="document")
+                .modal-content
+                    .modal-header
+                        .modal-title(id="exampleModalLabel") 配置个多条案例的信息吧
+                            button.close(data-dismiss="modal" aria-label="Close")
+                                .span(aria-hidden="true") &times;
+                    .modal-body
 
-                .form-check.form-check-inline
-                    label.form-check-label
-                        input.form-check-input(type="radio" name="platformName" id="platformName" value="case" checked="checked")
-                        span 案例库
-
-
-                .form-check.form-check-inline
-                    label.form-check-label
-                        input.form-check-input(type="radio" name="platformName" id="platformName" value="poc")
-                        span POC
 
 
         .row

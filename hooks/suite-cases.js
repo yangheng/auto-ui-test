@@ -5,7 +5,7 @@
 /* jshint esnext: true */
 
 require("./helpers/setup");
-var CUSTOM_KEYS = require("./util.js");
+var CUSTOM_KEYS = require("./helpers/util.js");
 
 var fs = require('fs');
 var actions = require("./helpers/actions");
@@ -20,13 +20,13 @@ describe("ios yiewd", function () {
   var allPassed = true;
   var indexOfCase = -1;
   var serverConfig = process.env.npm_package_config_sauce ?
-    serverConfigs.sauce : serverConfigs.local;
+      serverConfigs.sauce : serverConfigs.local;
   driver = wd.remote(serverConfig.host,serverConfig.port,
-    serverConfig.username, serverConfig.password);
+      serverConfig.username, serverConfig.password);
   require("./helpers/logging").configure(driver);
   //read cases url
   try {
-    var casesAdress = JSON.parse(fs.readFileSync("casesAdress.json"));
+    var casesAdress = JSON.parse(fs.readFileSync("caseAddress.json"));
     var cases = casesAdress.cases;
     console.log(cases);
   } catch (e) {
@@ -36,7 +36,7 @@ describe("ios yiewd", function () {
 
   before(function (done) {
     driver.run(function* () {
-      if(casesAdress.platformName === 'ios'){
+      if(casesAdress.platform === 'ios'){
         var desired = _.clone(require("./helpers/caps").ios107);
       }else {
         var desired = _.clone(require("./helpers/caps").androidP9);

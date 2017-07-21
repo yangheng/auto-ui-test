@@ -5,23 +5,28 @@ const fs = require('fs')
 const path = require('path')
 const config = require('../config.json')
 
-module.exports = function (cases,platformName='case',fileName) {
+module.exports = function (cases,fileName) {
+    let platform = cases[0].platform, type = cases[0].type,text="";
+    let caseAddress = {
+        platform,
+        cases
 
-    console.log(JSON.stringify(cases))
-    let text="" ;
+    }
     try{
-       /* text = fs.readFileSync(path.join(process.cwd(),config.caseHooks.dir,config.caseHooks[platformName]),'utf8')*/
+        text = fs.readFileSync(path.join(process.cwd(),config.caseHooks.dir,config.caseHooks[type]),'utf8')
         if(Array.isArray(cases)){
-            cases.forEach((filePath)=>{
-                text = text + fs.readFileSync(filePath,'utf8');
+            cases.forEach((c)=>{
+                text = text + fs.readFileSync(c.filePath,'utf8');
             })
         }else {
-            text = text + fs.readFileSync(cases,'utf8');
+            text = text + fs.readFileSync(cases.filePath,'utf8');
         }
 
-        //text = text + '});';
+        text = text + '});';
 
-        let tempCaseFile = path.join(process.cwd(),config.tempCasePath,fileName)
+        let tempCaseFile = path.join(process.cwd(),fileName)
+
+        fs.writeFileSync(path.join(process.cwd(),config.casePath),JSON.stringify(caseAddress))
 
         fs.writeFileSync(tempCaseFile,text);
 

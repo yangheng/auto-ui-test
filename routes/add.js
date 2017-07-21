@@ -25,11 +25,19 @@ router.post('/',upload.array('case'), function (req, res, next) {
 
     file.getFile(path.join(process.cwd(),'db.json')).then((data)=>{
         let database = JSON.parse(data);
+        writeToDb(database)
+    },()=>{
+        writeToDb()
+    })
+
+    function writeToDb(database=[]) {
         req.files.map((item)=>{
             database.push({
                 name: req.body.name,
-                project_url: req.body.project_url,
-                filePath: path.join(process.cwd(),'uploads',item.filename) 
+                project: req.body.project_url,
+                platform: req.body.platform,
+                type: req.body.type,
+                filePath: path.join(process.cwd(),'uploads',item.filename)
             })
         })
         fs.writeFile(path.join(process.cwd(),'db.json'),JSON.stringify(database),(err)=>{
@@ -37,9 +45,7 @@ router.post('/',upload.array('case'), function (req, res, next) {
             res.set("Refresh","1;url=/")
             res.render('success')
         })
-    })
-
-
+    }
     
 
 
