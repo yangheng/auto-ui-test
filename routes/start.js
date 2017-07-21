@@ -13,7 +13,9 @@ var mocha
 var mochaFinish= false,stdout
 var reportName=""
 function startMocha (reportName,fileName){
-    mocha = spawn('mocha', ['-R', 'mochawesome','--reporter-options',"reportDir="+reportPath+",reportFilename="+reportName,fileName]);
+    mochaFinish= false;
+    stdout = null;
+    mocha = spawn('mocha', ['--harmony','-R', 'mochawesome','--reporter-options',"reportDir="+reportPath+",reportFilename="+reportName,fileName]);
 
     mocha.stdout.on('data', (data) => {
      stdout = (stdout || "")+data
@@ -37,7 +39,7 @@ router.get('/',(req,res,next)=>{
 
 router.post('/',(req, res, next)=>{
  let tempName = Date.now()+'';
- let fileName = merge(JSON.parse(req.body.cases),tempName)
+ let fileName = merge(JSON.parse(req.body.cases),tempName+'.js')
  reportName= tempName+'-'+'report'
  startMocha(reportName,fileName)
     res.json({result:true})

@@ -19,6 +19,7 @@ block content
             .col 测试案例
             .col 测试设备
             .col 测试目标
+            .col 测试项目
             .col 操作
             .col 加入
 
@@ -29,6 +30,7 @@ block content
                     .col #{file.name}
                     .col #{file.platform}
                     .col #{file.type}
+                    .col #{file.project}
                     .col
                        a(onclick='showCode(this)') 查看代码
                     .col
@@ -56,6 +58,3 @@ block content
 
         .row
             button.btn.btn-success.btn-block(onclick='start(event)') 开始测试
-
-
-

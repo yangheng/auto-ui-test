@@ -71,7 +71,7 @@ describe("ios yiewd", function () {
       console.log("indexOfCase",indexOfCase);
       //输入案例地址
       var pageEntry = yield driver.elementByXPath('//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTextField[1]');
-      yield pageEntry.sendKeys(cases[indexOfCase].url);
+      yield pageEntry.sendKeys(cases[indexOfCase].project);
       yield pageEntry.sendKeys(wd.SPECIAL_KEYS.Return);
       //等待案例加载完毕,并设定超时
       // var caseTitle = yield driver.hasElementByXPath('//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[3]/XCUIElementTypeWebView[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]');
