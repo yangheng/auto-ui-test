@@ -1,0 +1,28 @@
+extends layout
+
+block append head
+    title= title
+
+block content
+  .container
+      form(method='POST' action='/start' )
+        .row.table-inverse.itemWrap
+            .col #
+            .col 测试报告
+
+
+        each file, index in files
+            .item
+                .row.itemWrap
+                    .col #{index}
+                    .col
+                        a(href="/"+`${path}`+"/"+`${file}`)= file
+
+
+
+
+
+
+
+
+

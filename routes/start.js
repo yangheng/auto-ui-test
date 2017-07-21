@@ -22,10 +22,8 @@ function startMocha (reportName,fileName){
      console.error(data.toString());
      });
     mocha.on('exit',(code)=>{
-         mochaFinish= true;
-         console.log(mochaFinish)
-         
-      fs.unlink(fileName)
+        mochaFinish= true;
+        fs.unlink(fileName)
      })
 }
 

@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const add = require('./routes/add')
 const start = require('./routes/start')
+const cases = require('./routes/cases')
+
 const app = express();
 
 // view engine setup
@@ -25,6 +27,7 @@ app.use('/report',express.static(path.join(__dirname, 'report')));
 app.use('/', index);
 app.use('/add', add)
 app.use('/start', start)
+app.use('/cases', cases)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
