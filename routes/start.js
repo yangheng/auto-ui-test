@@ -18,6 +18,7 @@ function startMocha (reportName,fileName){
     mocha = spawn('mocha', ['--harmony','-R', 'mochawesome','--reporter-options',"reportDir="+reportPath+",reportFilename="+reportName,fileName]);
 
     mocha.stdout.on('data', (data) => {
+      console.log(data.toString())
      stdout = (stdout || "")+data
      });
     mocha.stderr.on('data', (data) => {
