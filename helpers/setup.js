@@ -1,6 +1,6 @@
 var wd = require("wd");
 
-require('colors');
+//require('colors');
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);

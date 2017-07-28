@@ -28,6 +28,7 @@ function startMocha (reportName,fileName){
         mochaFinish= true;
         fs.unlink(fileName)
      })
+    
 }
 
 router.get('/check',(req, res, next)=>{
