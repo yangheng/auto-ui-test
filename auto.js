@@ -6,8 +6,6 @@ const os = require('os')
 const fs = require('fs')
 const path = require('path')
 const {spawn,exec,execFile} = require('child_process')
-const execFile = require('')
-
 const devDependence= {
     'common': [
         {
@@ -34,7 +32,6 @@ const devDependence= {
         {
             'command': 'npm',args:['install','authorize-ios','-g'] // use of ios simulator
         },
-        ,
         {
             'command':'brew',args:['install','libimobiledevice','--HEAD'] //iphone Communication
         },
@@ -81,10 +78,11 @@ function subProcess(dev,cb=false) {
             }
         })
         command.stdout.on('data',data=>{
-         stdout = (stdout||"") + data
+         stdout = (stdout||"") + data;
+            console.log(data.toString());
          })
-        command.stdout.pipe(process.stdout)
-        command.stderr.pipe(process.stderr)
+        //command.stdout.pipe(process.stdout)
+        command.stderr.pipe(process.stdout)
         command.stderr.on('error',err=>{
             let msg= 'Standard error \'' + err.syscall + '\' error: ' + err.stack;
             process.stderr.write(msg);
@@ -103,9 +101,9 @@ class autoMate {
     }
     async init(){}
     async installDependence(){
-        const devs= devDependence[this.platform];
+        const devs = devDependence.common.concat(devDependence[this.platform]);
         for(let i=0;i<devs.length;i++){
-
+            console.log(devs[i].command +" "+ devs[i].args.join(" "));
             let result= await subProcess(devs[i])
             if(!result) return false
         }
@@ -120,9 +118,19 @@ class autoMateMac extends autoMate{
         if(result){
         //安装成功可安装安卓相关依赖
             let android= await this.checkAndroidEnv()
-            if(android){
-                await this.checkAndroidPath();
+
+            if(!android){
+               console.error('Android 环境安装失败');
+                process.exit()
             }
+            //安装当前环境下的依赖包
+
+            await subProcess({'command':'npm',args:['install']})
+
+            //启动服务
+
+            await subProcess({'command':'appium',args:[]})
+
         }else{
             process.exit()
         }
@@ -141,7 +149,13 @@ class autoMateMac extends autoMate{
     }
     async checkIosEnv(){
         //检测 xcode
-        await this.checkXcode()
+
+        let xcodeEnable= await this.checkXcode()
+        if(!xcodeEnable){
+            process.stderr.write("请先安装Xcode \n")
+            return false;
+        }
+
         //检测 brew 是否按装
         let isBrew=await this.checkBrew()
         if(isBrew){
@@ -149,16 +163,16 @@ class autoMateMac extends autoMate{
             let isDep= await this.installDependence()
 
             if(isDep){
-                process.stdout.write("IOS 相关依赖已经安装完毕")
+                console.error("IOS 相关依赖已经安装完毕")
                 return true
             }else {
-                process.stderr.write("依赖包安装失败")
+                console.error("依赖包安装失败")
                 return false
             }
 
         }else{
-            process.stderr.write("brew install 失败了")
-            precess.exit()
+            console.error("brew install 失败了")
+            return false
         }
 
     }
@@ -173,7 +187,7 @@ class autoMateMac extends autoMate{
         let sdkPath= await subProcess({'command':'echo','args':['$JAVA_HOME']})
         let androidPath= await subProcess({'command':'echo','args':['$ANDROID_HOME']})
         if(sdkPath===false){
-            process.chdir('~/')
+            process.chdir(process.env.HOME)
             if(!fs.existsSync('.bash_profile')){
                 fs.writeFileSync('.bash_profile')
             }
@@ -182,6 +196,17 @@ class autoMateMac extends autoMate{
         if(androidPath===false){
             fs.appendFileSync('.bash_profile',"\n export ANDROID_HOME="+androidPath.stdout,'utf8')
         }
+        let sourceCommand= await subProcess({'command':'source','args':['.bash_profile']})
+
+        if(!sourceCommand){
+            // 环境变量设置失败
+            console.error('Android 环境变量设置失败')
+            return false
+        }
+
+        process.chdir(process.env.PWD);
+
+        return true;
 
     }
     async checkSDK(){
@@ -217,7 +242,9 @@ class autoMateMac extends autoMate{
                     'command': "brew",
                     'args': ['tap','install','android-sdk']
                 }
-                await subProcess(dev)
+                let res=await subProcess(dev)
+
+                return res;
             }
         }
     }
@@ -229,7 +256,9 @@ class autoMateMac extends autoMate{
         }
         try {
             let result= await subProcess(dev)
-            if(result.stdout== "/Applications/Xcode.app/Contents/Developer")
+            console.log("result is" + result.stdout)
+            debugger;
+            if(result.stdout== "/Applications/Xcode.app/Contents/Developer\n")
                 return true;
             else
                 return false
@@ -242,10 +271,11 @@ class autoMateMac extends autoMate{
     async checkBrew(){
         let dev={
             'command': 'brew',
-            'args': []
+            'args': ['-v']
         }
         try{
             let result= await subProcess(dev,true)
+            debugger;
             return result;
         }catch (err){
             if(err.errno==='ENOENT'){
@@ -296,4 +326,14 @@ class autoMateWin extends autoMate{
 
 function main() {
     const platform = os.platform()
+    process.stdout.write(platform)
+    try{
+        let mac= new autoMateMac(platform)
+        mac.init()
+    }catch (err){
+        console.log(err.message)
+    }
+
 }
+
+main()
