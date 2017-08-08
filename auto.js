@@ -123,6 +123,9 @@ class autoMateMac extends autoMate{
                console.error('Android 环境安装失败');
                 process.exit()
             }
+
+            await this.checkAndroidPath();
+
             //安装当前环境下的依赖包
 
             await subProcess({'command':'npm',args:['install']})
