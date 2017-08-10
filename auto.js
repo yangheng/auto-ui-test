@@ -6,6 +6,12 @@ const os = require('os')
 const fs = require('fs')
 const path = require('path')
 const {spawn,exec,execFile} = require('child_process')
+const win32Url= {
+    'maven': 'http://mirror.bit.edu.cn/apache/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.zip',
+    'ant': 'https://mirrors.tuna.tsinghua.edu.cn/apache//ant/binaries/apache-ant-1.10.1-bin.zip',
+    'jdk': '',
+    'sdk': ''
+}
 const devDependence= {
     'common': [
         {
@@ -301,8 +307,41 @@ class autoMateWin extends autoMate{
         super(type)
         this.SDKEnable=false;
     }
-    async init(){}
-    async checkAndroidPath(){
+    async init(){
+
+    }
+    async checkJDK(){
+        let dev= {
+            'command': 'java',
+            'args': ['-version']
+        }
+
+        try {
+            let t= await subProcess(dev,true)
+
+        }catch (err){
+            if(err.errno==='ENOENT'){
+                let d = await subProcess({
+                    'command': 'curl',
+                    'args': [win32Url.jdk,'-C','-o','jdk.zip','--progress']
+                })
+                if(d){
+                    
+                }
+
+            }
+        }
+
+
+    }
+    async checkAndroidSDK(){
+
+    }
+    async checkAnt(){
+
+    }
+
+    async checkMaven(){
 
     }
     async checkSDk(){
