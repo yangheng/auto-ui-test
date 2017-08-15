@@ -114,7 +114,7 @@ class autoMate {
     constructor(type){
         this.platform = type;
         this.env= Object.assign(process.env)
-        this.logFile= path.join(this.env.PWD,'log.json');
+        this.logFile= path.join(this.env.PWD||__dirname,'log.json');
         this.devLog= this.getLog();
     }
     async init(){}
