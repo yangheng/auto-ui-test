@@ -32,7 +32,6 @@ function subProcess(dev,cb=false) {
             }
         })
         command.stdout.on('data',data=>{
-            console.log('data is .....')
             stdout = (stdout||"") + data
         })
         command.stdout.pipe(process.stdout)
