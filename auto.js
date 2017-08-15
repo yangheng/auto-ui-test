@@ -138,7 +138,7 @@ class autoMate {
     }
     getLog(){
         if(fs.existsSync(this.logFile)){
-            return  JSON.parse(fs.readFileSync(logFile,{encoding:'utf8'}))
+            return  JSON.parse(fs.readFileSync(this.logFile,{encoding:'utf8'}))
         }else{
             return {}
         }
