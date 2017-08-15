@@ -253,13 +253,6 @@ class autoMateMac extends autoMate{
             console.error('Android 环境变量设置失败')
             return false
         }
-        let sourceCommand= await subProcess({'command':'source','args':['.bash_profile']})
-
-        if(!sourceCommand){
-            // 环境变量设置失败
-            console.error('Android 环境变量设置失败')
-            return false
-        }
 
         process.chdir(process.env.PWD);
 
