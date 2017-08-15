@@ -493,13 +493,15 @@ class autoMateWin extends autoMate{
 
 function main() {
     const platform = os.platform()
-    process.stdout.write(platform)
-    try{
-        let mac= new autoMateMac(platform)
-        mac.init()
-    }catch (err){
-        console.log(err.message)
+    console.info(platform)
+    var pc ;
+    if(platform == 'darwin'){
+        pc= new autoMateMac(platform)
+    }else{
+        pc= new autoMateWin(platform)
     }
+
+    pc.init()
 
 }
 
