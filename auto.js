@@ -133,7 +133,6 @@ class autoMate {
                 }
             }
 
-
         }
         return true
     }
@@ -213,6 +212,7 @@ class autoMateMac extends autoMate{
 
             if(isDep){
                 console.success("IOS 相关依赖已经安装完毕")
+
                 return true
             }else {
                 console.error("依赖包安装失败")
@@ -253,6 +253,17 @@ class autoMateMac extends autoMate{
             console.error('Android 环境变量设置失败')
             return false
         }
+        let sourceCommand= await subProcess({'command':'source','args':['.bash_profile']})
+
+        if(!sourceCommand){
+            // 环境变量设置失败
+            console.error('Android 环境变量设置失败')
+            return false
+        }
+
+        process.chdir(process.env.PWD);
+
+        return true;
 
         process.chdir(process.env.PWD);
 
