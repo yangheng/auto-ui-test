@@ -25,28 +25,28 @@ console.info = function (msg) {
 const devDependence= {
     'common': [
         {
-            'command': 'npm', args:['install','gulp','-g']
+            'command': 'cnpm', args:['install','gulp','-g']
         },
         {
-            'command': 'npm', args:['install','appium-gulp-plugins','-g']
+            'command': 'cnpm', args:['install','appium-gulp-plugins','-g']
         },
         {
-            'command': 'npm',args:['install','appium','-g']
+            'command': 'cnpm',args:['install','appium','-g']
         },
         {
-            'command': 'npm',args:['install','appium-doctor','-g'] //check appium envirment
+            'command': 'cnpm',args:['install','appium-doctor','-g'] //check appium envirment
         },
         {
-            'command': 'npm',args:['install','mocha','-g']
+            'command': 'cnpm',args:['install','mocha','-g']
         }
     ],
     'darwin': [
         {
-            'command': 'npm' ,args:['install','ios-deploy','-g']
+            'command': 'cnpm' ,args:['install','ios-deploy','-g']
         },
 
         {
-            'command': 'npm',args:['install','authorize-ios','-g'] // use of ios simulator
+            'command': 'cnpm',args:['install','authorize-ios','-g'] // use of ios simulator
         },
         {
             'command':'brew',args:['install','libimobiledevice','--HEAD'] //iphone Communication
@@ -54,9 +54,9 @@ const devDependence= {
         {
             'command':'brew',args:['install','mobiledevice'] //get ios information
         },
-        {
+        /*{
             'command':'brew',args:['install' ,'carthage']
-        }
+        }*/
     ],
     'win32':[
 
@@ -117,7 +117,15 @@ class autoMate {
         this.logFile= path.join(this.env.PWD||__dirname,'log.json');
         this.devLog= this.getLog();
     }
-    async init(){}
+    async init(){
+        if(Object.keys(this.devLog).length==0){
+            await subProcess({
+                'command': 'npm',
+                'args': ['install','-g','cnpm','--registry=https://registry.npm.taobao.org']
+            })
+        }
+
+    }
     async installDependence(){
         const devs = devDependence.common.concat(devDependence[this.platform]);
         for(let i=0;i<devs.length;i++){
@@ -150,6 +158,7 @@ class autoMate {
 }
 class autoMateMac extends autoMate{
     async init(){
+        await super.init()
         //安装IOS相关依赖
         let result = await this.checkIosEnv()
         if(result){
@@ -235,7 +244,7 @@ class autoMateMac extends autoMate{
     async checkAndroidPath(){
 
         if(this.env.JAVA_HOME===undefined){
-            process.chdir(process.env.HOME)
+            process.chdir(this.env.HOME)
             if(!fs.existsSync('.bash_profile')){
                 fs.writeFileSync('.bash_profile')
             }
@@ -246,17 +255,17 @@ class autoMateMac extends autoMate{
         if(this.env.ANDROID_HOME===undefined){
             fs.appendFileSync('.bash_profile',"\n export ANDROID_HOME="+path.join(this.env.HOME,'Library/Android/sdk/'),'utf8')
         }
-        let sourceCommand= await subProcess({'command':'source','args':['.bash_profile']})
+        if(this.env.JAVA_HOME===undefined ||this.env.ANDROID_HOME===undefined ){
 
-        if(!sourceCommand){
-            // 环境变量设置失败
-            console.error('Android 环境变量设置失败')
-            return false
+            let sourceCommand= await subProcess({'command':'source','args':[path.join(this.env.HOME,'.bash_profile') ]})
+
+            if(!sourceCommand){
+                // 环境变量设置失败
+                console.error('Android 环境变量设置失败')
+                return false
+            }
         }
 
-        process.chdir(process.env.PWD);
-
-        return true;
 
         process.chdir(process.env.PWD);
 
@@ -266,7 +275,7 @@ class autoMateMac extends autoMate{
     async checkSDK(){
         let dev= {
             'command': "android",
-            'args': ['-h']
+            'args': ['list','target']
         }
         try {
             let result= await subProcess(dev,true)
@@ -371,6 +380,7 @@ class autoMateWin extends autoMate{
 
     }
     async init(){
+        await super.init();
         let isDep= await this.installDependence()
         this.setLog()
         if(!isDep) {
