@@ -33,17 +33,6 @@ exports.ios81 = {
   app: undefined // will be set later
 };
 
-exports.androidP9 = {
-  // browserName: '',
-  // app:
-  platformName: 'Android',
-  platformVersion: '7.0',
-  deviceName: 'HUAWEI P9',
-  udid: 'PBV7N16322001695', // will be set later
-  appPackage: 'com.yunshipei.enterplorer',
-  appActivity: 'com.yunshipei.ui.activity.SplashActivity',
-  noReset:true
-};
 
 exports.android18 = {
   browserName: '',
@@ -71,4 +60,25 @@ exports.selendroid16 = {
   automationName: 'selendroid',
   deviceName: 'Android Emulator',
   app: undefined // will be set later
+};
+exports.androidP9 = {
+  platformName: 'Android',
+  platformVersion: '7.0',
+  //browserName: 'Chromium',
+  deviceName: 'HUAWEI P9',
+  udid: 'PBV7N16322001695',
+  appPackage: 'com.yunshipei.enterplorer.debug',
+  appActivity: 'com.yunshipei.ui.activity.SplashActivity',
+  automationName: 'uiautomator2',
+  autoWebView:true,
+  chromedriverExecutable:"/usr/local/lib/node_modules/appium/node_modules/_appium-chromedriver@2.12.1@appium-chromedriver/chromedriver/mac/chromedriver",
+  //androidDeviceSocket:'chrome_devtools_remote',
+  androidDeviceSocket:'com.yunshipei.enterplorer.debug_devtools_remote',
+  //chromedriverExecutable: "path/to/patched/driver",
+  chromeOptions:{
+
+  },
+  noSign:true,
+  noReset:true,
+  enablePerformanceLogging:true
 };

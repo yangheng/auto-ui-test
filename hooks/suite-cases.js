@@ -7,7 +7,7 @@ var wd = require("wd"),
     Q = require('q'),
     serverConfigs = require('./helpers/appium-servers');
 
-describe("ios simple", function () {
+describe("android simple", function () {
   this.timeout(300000);
   var driver;
   var allPassed = true;
@@ -18,10 +18,10 @@ describe("ios simple", function () {
     driver = wd.promiseChainRemote(serverConfig);
     require("./helpers/logging").configure(driver);
 
-    var desired = _.clone(require("./helpers/caps").ios107);
+    var desired = _.clone(require("./helpers/caps").androidP9);
     // desired.app = require("./helpers/apps").iosTestApp;
     if (process.env.npm_package_config_sauce) {
-      desired.name = 'ios - simple';
+      desired.name = 'android - simple';
       desired.tags = ['sample'];
     }
     return driver.init(desired);
