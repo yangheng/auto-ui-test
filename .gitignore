@@ -1,8 +1,8 @@
 
 .idea/
 node_modules/
-tests/
 uploads/
+log.json
 db.json
 report/
 caseAddress.json
