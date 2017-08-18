@@ -56,9 +56,12 @@ const devDependence= {
         {
             'command':'brew',args:['install','mobiledevice'] //get ios information
         },
-        /*{
-            'command':'brew',args:['install' ,'carthage']
-        }*/
+        {
+            'command':'brew',args:['install','carthage']
+        },
+        {
+            'command':'brew',args:['install','ios-webkit-debug-proxy']
+        }
     ],
     'win32':[
 
@@ -69,7 +72,7 @@ function subProcess(dev,cb=false) {
     var stdout;
     let pro = new Promise((resolve,reject)=>{
 
-        const command= spawn(dev.command,[...dev.args])
+        const command= os.platform()==='win32'?spawn(dev.command,[...dev.args],{shell:true}):spawn(dev.command,[...dev.args]);
 
         command.on('error',err=>{
 
@@ -196,11 +199,24 @@ class autoMateMac extends autoMate{
         let module_pwd= await subProcess({'command':'npm',args:['root','-g']})
         console.log(module_pwd)
         if(module_pwd){
-            let file= await subProcess({'command': 'find',args:[path.join(module_pwd.stdout.match(/./g).join(''),'appium'),'-name','UITestingUITests.m']})
+            let globalPath = module_pwd.stdout.match(/./g).join('')
+            let file= await subProcess({'command': 'find',args:[path.join(globalPath,'appium'),'-name','UITestingUITests.m']})
 
             if(file&&file.stdout){
                 await subProcess({'command':'cp',args:['-f','./override/UITestingUITests.m',file.stdout.match(/./g).join('')]})
             }
+
+            let WebDriverAgentPath = path.join(globalPath,'appium','node_modules','appium-xcuitest-driver','WebDriverAgent')
+            process.chdir(WebDriverAgentPath)
+
+            await subProcess({'command':'mkdir','args':['-p','Resources/WebDriverAgent.bundle']})
+
+            await subProcess({'command':'./Scripts/bootstrap.sh','args':['-d']})
+
+            await subProcess({'command':'open','args':['WebDriverAgent.xcodeproj']})
+
+
+            process.chdir(this.env.PWD);
         }
 
     }
@@ -269,7 +285,7 @@ class autoMateMac extends autoMate{
         }
 
 
-        process.chdir(process.env.PWD);
+        process.chdir(this.env.PWD);
 
         return true;
 
@@ -329,6 +345,7 @@ class autoMateMac extends autoMate{
             }
         }
     }
+
 
     async checkXcode(){
         let dev = {

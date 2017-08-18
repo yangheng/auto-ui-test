@@ -7,12 +7,14 @@ exports.ios107sim = {
 
 exports.ios107 = {
   "platformName": "iOS",
-  "platformVersion": "10.3.2",
-  "deviceName": "iPhone 6",
-  "bundleId": "com.gome.web",
-  "udid": "350046e62142a821d98727aa7fa40cd353725eff",
+  "platformVersion": "10.3",
+  "automationName":"XCUITest",
+  "deviceName": "iPhone 7 Plus",
+  "bundleId": "com.yunshipei.YSPExplorer",
+  "udid": "623ef7ebc6d5e24f4a40059f82c9472ebd82f5ea",
   "xcodeOrgId": "Y3333NF579",
   "xcodeSigningId": "iPhone Developer",
+  "startIWDP":true
 }
 
 exports.ios92 = {
