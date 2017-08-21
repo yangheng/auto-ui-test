@@ -124,10 +124,16 @@ class autoMate {
     }
     async init(){
         if(Object.keys(this.devLog).length==0){
+            let res = await subProcess({'command':'cnpm',args:['version']})
+
+            if(res.code&&res.code==0) return true;
+
             await subProcess({
                 'command': 'npm',
                 'args': ['install','-g','cnpm','--registry=https://registry.npm.taobao.org']
             })
+
+            return true;
         }
 
     }
@@ -136,13 +142,11 @@ class autoMate {
         for(let i=0;i<devs.length;i++){
             if(!this.devLog[devs[i].args[1]]){
                 console.log(devs[i].command +" "+ devs[i].args.join(" "));
-                let result= await subProcess(devs[i])
-
-                if(!result) {
-                    this.devLog[devs[i].args[1]] = false
-                    return false
-                }else{
+                let result= await subProcess(devs[i],true)
+                if(result.code&&result.code ==0){
                     this.devLog[devs[i].args[1]] = true;
+                }else{
+                    this.devLog[devs[i].args[1]] = false;
                 }
             }
 
