@@ -5,4 +5,5 @@ uploads/
 log.json
 db.json
 report/
+wdio.log/*
 caseAddress.json
