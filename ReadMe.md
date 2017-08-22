@@ -19,8 +19,12 @@
 #####说明:
 
 1.程序会自动安装所有依赖和环境配置,如果安装都成功的话,会直接启动 appium 服务
+2.Appium安装路径为：
+```
+/usr/local/lib/node_modules/appium
+```
 
-2.init 以后,如果再需要测试案例,可以直接全局启动 appium 服务,直接运行如下命令:
+3.init 以后,如果再需要测试案例,可以直接全局启动 appium 服务,直接运行如下命令:
 ```
     appium
 ```
@@ -72,4 +76,3 @@ Test Suite 'All tests' started at 2017-01-23 15:49:12.585
 git@git.yunshipei.com:heng.yang/chromedriver.git
 ```
 将下载下来的内容全部拷贝到 appium 所安装目录里的/node_modules/appium-chromedriver/chromedriver/mac/
-
