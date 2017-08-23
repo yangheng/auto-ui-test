@@ -92,3 +92,5 @@ test
 [用例编写语法](http://webdriver.io/api.html)
 
 [断言语法(推荐用`should`,当前项目使用should)](http://chaijs.com/)
+
+[测试框架`Mocha`语法](https://mochajs.org/)
