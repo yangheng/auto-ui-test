@@ -1,0 +1,82 @@
+
+> myapp@0.0.0 start /Users/adminyunshipeicom/webServer/test
+> node ./bin/www
+
+string
+it("should compute the sum", function () {
+  return driver
+  .sleep(2000)
+  .elementByXPath('//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTextField[1]')
+  .sendKeys("http://cases.yunshipei.info/cases/component/checkbox/main")
+  .sleep(1000)
+  .sendKeys(wd.SPECIAL_KEYS.Return);
+  .sleep(5000)
+  .source()
+  .then(console.log)
+  .sleep(5000)
+  .context('WEBVIEW')
+  .sleep(1000)
+
+    // .resolve(populate()).then(function (sum) {
+    //   return driver.
+    //     elementByAccessibilityId('ComputeSumButton')
+    //       .click().sleep(1000)
+    //     .elementByAccessibilityId('Answer')
+    //       .text().should.become("" + sum);
+    // });
+});
+
+[ { name: 'BH-02 图片组件基本测试 必测',
+    project: 'http://cases.yunshipei.info/cases/component/image/main',
+    platform: 'ios',
+    type: 'case',
+    filePath: '/Users/adminyunshipeicom/webServer/test/uploads/1500622060363-imageComponent.js',
+    code: 'it("should compute the sum", function () {\n  return driver\n  .sleep(2000)\n  .elementByXPath(\'//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTextField[1]\')\n  .sendKeys("http://cases.yunshipei.info/cases/component/checkbox/main")\n  .sleep(1000)\n  .sendKeys(wd.SPECIAL_KEYS.Return);\n  .sleep(5000)\n  .source()\n  .then(console.log)\n  .sleep(5000)\n  .context(\'WEBVIEW\')\n  .sleep(1000)\n\n    // .resolve(populate()).then(function (sum) {\n    //   return driver.\n    //     elementByAccessibilityId(\'ComputeSumButton\')\n    //       .click().sleep(1000)\n    //     .elementByAccessibilityId(\'Answer\')\n    //       .text().should.become("" + sum);\n    // });\n});\n' } ]
+[0mGET / [32m200 [0m1488.750 ms - 4730[0m
+[0mGET /bootstrap/css/bootstrap.min.css [36m304 [0m3.479 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m3.413 ms - -[0m
+[0mGET /highlight/styles/monokai-sublime.css [36m304 [0m3.409 ms - -[0m
+[0mGET /highlight/highlight.pack.js [36m304 [0m3.465 ms - -[0m
+[0mGET /javascripts/jquery.js [36m304 [0m3.352 ms - -[0m
+[0mGET /javascripts/index.js [36m304 [0m3.380 ms - -[0m
+
+> myapp@0.0.0 start /Users/adminyunshipeicom/webServer/test
+> node ./bin/www
+
+string
+it("should compute the sum", function () {
+  return driver
+  .sleep(2000)
+  .elementByXPath('//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTextField[1]')
+  .sendKeys("http://cases.yunshipei.info/cases/component/checkbox/main")
+  .sleep(1000)
+  .sendKeys(wd.SPECIAL_KEYS.Return);
+  .sleep(5000)
+  .source()
+  .then(console.log)
+  .sleep(5000)
+  .context('WEBVIEW')
+  .sleep(1000)
+
+    // .resolve(populate()).then(function (sum) {
+    //   return driver.
+    //     elementByAccessibilityId('ComputeSumButton')
+    //       .click().sleep(1000)
+    //     .elementByAccessibilityId('Answer')
+    //       .text().should.become("" + sum);
+    // });
+});
+
+[ { name: 'BH-02 图片组件基本测试 必测',
+    project: 'http://cases.yunshipei.info/cases/component/image/main',
+    platform: 'ios',
+    type: 'case',
+    filePath: '/Users/adminyunshipeicom/webServer/test/uploads/1500622060363-imageComponent.js',
+    code: 'it("should compute the sum", function () {\n  return driver\n  .sleep(2000)\n  .elementByXPath(\'//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTextField[1]\')\n  .sendKeys("http://cases.yunshipei.info/cases/component/checkbox/main")\n  .sleep(1000)\n  .sendKeys(wd.SPECIAL_KEYS.Return);\n  .sleep(5000)\n  .source()\n  .then(console.log)\n  .sleep(5000)\n  .context(\'WEBVIEW\')\n  .sleep(1000)\n\n    // .resolve(populate()).then(function (sum) {\n    //   return driver.\n    //     elementByAccessibilityId(\'ComputeSumButton\')\n    //       .click().sleep(1000)\n    //     .elementByAccessibilityId(\'Answer\')\n    //       .text().should.become("" + sum);\n    // });\n});\n' } ]
+[0mGET / [36m304 [0m438.984 ms - -[0m
+[0mGET /bootstrap/css/bootstrap.min.css [36m304 [0m4.264 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m4.514 ms - -[0m
+[0mGET /highlight/styles/monokai-sublime.css [36m304 [0m4.607 ms - -[0m
+[0mGET /highlight/highlight.pack.js [36m304 [0m4.689 ms - -[0m
+[0mGET /javascripts/jquery.js [36m304 [0m4.449 ms - -[0m
+[0mGET /javascripts/index.js [36m304 [0m4.452 ms - -[0m

@@ -1,0 +1,29 @@
+{
+  "platformName":"ios/android",
+  "plan":"poc/anli/yunshipeiOA",
+  "cases":[
+    { "name":"BK-03 多选按钮基本测试 必测",
+       "url":"http://cases.yunshipei.info/cases/component/checkbox/main"}
+    ,{ "name":"BO-03 日期组件基本测试 必测",
+       "url":"http://cases.yunshipei.info/cases/component/date/main"}
+    ,{ "name":"BH-02 图片组件基本测试 必测",
+       "url":"http://cases.yunshipei.info/cases/component/image/main"}
+    ,{ "name":"BG-02 链接组件基本测试 必测",
+       "url":"http://cases.yunshipei.info/cases/component/link/main"}
+    ,{ "name":"BQ-01 模态框基本案例 必测",
+       "url":"http://cases.yunshipei.info/cases/component/modal/main"}
+    ,{ "name":"BL-03 单选按钮基本测试 必测",
+        "url":"http://cases.yunshipei.info/cases/component/radio/main"}
+    ,{ "name":"BJ-03 下拉框基本测试 必测",
+        "url":"http://cases.yunshipei.info/cases/component/select/main"}
+    ,{ "name":"BN-01 文件上传基本测试 必测",
+        "url":"http://cases.yunshipei.info/cases/component/upload/main"}
+    ,{ "name":"E-01 事件回调案例 必测",
+       "url":"http://cases.yunshipei.info/cases/custom_component/do_action"}
+    ,{ "name":"E-02 数据获取案例 必测",
+        "url":"http://cases.yunshipei.info/cases/custom_component/get_data"}
+    ,{ "name":"E-03 模板使用案例 必测",
+        "url":"http://cases.yunshipei.info/cases/custom_component/template"}
+  ]
+
+}
