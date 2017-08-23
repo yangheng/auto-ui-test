@@ -24,8 +24,9 @@
     "serve-favicon": "~2.4.2",
     "underscore": "^1.8.3",
     "wd": "^1.4.0",
-    "yiewd": "^0.6.0",
-    "wdio-appium-service": "~0.2.2"
+    "wdio-appium-service": "~0.2.2",
+    "webdriverio": "^4.8.0",
+    "yiewd": "^0.6.0"
   },
   "devDependencies": {
     "mocha": "^3.4.2",
