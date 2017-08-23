@@ -81,15 +81,14 @@ git@git.yunshipei.com:heng.yang/chromedriver.git
 
 ```
 test
-  |
-  --|helpers
-        |
-        -- capabilities.js // session 配置
-        -- casesAddress.json // 案例库信息
-  --|test // 用例文件夹
+  |-- helpers
+        |-- capabilities.js // session 配置
+        |-- casesAddress.json // 案例库信息
+  |-- test // 用例文件夹
     |-- io.js // 测试用例
 ```
 
 
 [用例编写语法](http://webdriver.io/api.html)
+
 [断言语法(推荐用`should`,当前项目使用should)](http://chaijs.com/)
