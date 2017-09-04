@@ -1,4 +1,4 @@
-### 工程说明
+# 工程说明
 
 1.  mac 版支持自动化安装程序所依赖的库和软件包
 2.  windows 版由于需要手动设置环境变量和下载Android 相关软件包,所以设计成半自动化,不能自动执行的任务将以"提示"方式出现,指导安装过程
@@ -11,12 +11,12 @@
     report    用来显示测试分析报告
     tests     用来存放测试案例文件
 
-### 自动安装说明
+## 自动安装说明
  初次下载此项目之后,直接运行如下命令:
 ```
     npm run init
 ```
-#####说明:
+##### 说明:
 
 1.程序会自动安装所有依赖和环境配置,如果安装都成功的话,会直接启动 appium 服务
 2.Appium安装路径为：
@@ -29,9 +29,9 @@
     appium
 ```
 
-### MAC环境手动配置内容
+# MAC环境手动配置内容
 
-####  IOS配置
+##  IOS配置
 1.  Xcode打开 WebDriverAgent.xcodeproj 之后,在 WebDriverAgentLib 和WebDriverAgentRunner 的General 面板上 选择 Automatically manage signing, Team 下拉选择框上选择自己的Development Team .
 如下图
 ![配置](https://git.yunshipei.com/heng.yang/test/raw/12fecc6030914f583c486d8537f8f3021098bd80/md_resource/xcode-config.png)
@@ -66,7 +66,7 @@ Test Suite 'All tests' started at 2017-01-23 15:49:12.585
         t =     0.00s     Set Up
 ```
 
-### Android 配置
+## Android 配置
 
 1.  mac 测试安卓设备需要将 appium 所安装目录里的/node_modules/appium-chromedriver/chromedriver/mac/ 下的chromedriver 替换掉.
 
@@ -76,3 +76,22 @@ Test Suite 'All tests' started at 2017-01-23 15:49:12.585
 git@git.yunshipei.com:heng.yang/chromedriver.git
 ```
 将下载下来的内容全部拷贝到 appium 所安装目录里的/node_modules/appium-chromedriver/chromedriver/mac/
+
+# 案例开发参考规范
+
+```
+test
+  |-- helpers
+        |-- capabilities.js // session 配置
+        |-- casesAddress.json // 案例库信息
+  |-- test // 用例文件夹
+    |-- io.js // 测试用例
+```
+
+# 参考链接
+
+[用例编写语法](http://webdriver.io/api.html)
+
+[断言语法(推荐用`should`,当前项目使用should)](http://chaijs.com/)
+
+[测试框架`Mocha`语法](https://mochajs.org/)
