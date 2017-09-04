@@ -22,7 +22,14 @@ class Tests {
         return this;
     }
     addDriverInit(device){
-        this.children.push(`config.desiredCapabilities = Object.assign({},platform["${device.platform}"],devices["${device.platform}"]["${device.udid}"])`);
+        if(device.platform=="ios"){
+            let xcodeConfig = {};
+            
+            this.children.push(`config.desiredCapabilities = Object.assign({},platform["${device.platform}"],devices["${device.platform}"]["${device.udid}"],{xcodeOrgId:"${xcodeConfig.xcodeOrgId}",xcodeSigningId:"${xcodeConfig.xcodeSigningId}")`);
+        }else{
+            this.children.push(`config.desiredCapabilities = Object.assign({},platform["${device.platform}"],devices["${device.platform}"]["${device.udid}"])`);
+        }
+
         this.children.push("client=webdriverio.remote(config)");
         return this;
     }

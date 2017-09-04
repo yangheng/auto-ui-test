@@ -7,7 +7,6 @@ db.json
 report/
 wdio.log/*
 screenshot/
-cases/
 test/*.js
 wdio.log/
 nohup.out
