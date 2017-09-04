@@ -34,20 +34,20 @@
 ##  IOS配置
 1.  Xcode打开 WebDriverAgent.xcodeproj 之后,在 WebDriverAgentLib 和WebDriverAgentRunner 的General 面板上 选择 Automatically manage signing, Team 下拉选择框上选择自己的Development Team .
 如下图
-![配置](https://git.yunshipei.com/heng.yang/test/raw/12fecc6030914f583c486d8537f8f3021098bd80/md_resource/xcode-config.png)
+![配置](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/xcode-config.png)
 ![配置](./md_resource/xcode-config.png)
 
 2.   在配置WebDriverAgentRunner 时候,Xcode 创建provisioning profile 可能会失败如下图:
-![失败](https://git.yunshipei.com/heng.yang/test/raw/12fecc6030914f583c486d8537f8f3021098bd80/md_resource/xcode-facebook-fail.png)
+![失败](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/xcode-facebook-fail.png)
 ![失败](./md_resource/xcode-facebook-fail.png)
 
 出现这种情况的时候需要打开 Build Settings 面板,把 Product Bundle Identifier 设置为 com.gome.web
 如下图
-![bundle](https://git.yunshipei.com/heng.yang/test/raw/12fecc6030914f583c486d8537f8f3021098bd80/md_resource/xcode-bundle-id.png)
+![bundle](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/xcode-bundle-id.png)
 ![bundle](./md_resource/xcode-bundle-id.png)
 
 再返回到General 面板,这时候你看到的应该就是成功的了,如下图
-![success](https://git.yunshipei.com/heng.yang/test/raw/12fecc6030914f583c486d8537f8f3021098bd80/md_resource/xcode-facebook-succeed.png)
+![success](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/xcode-facebook-succeed.png)
 ![success](./md_resource/xcode-facebook-succeed.png)
 
 3.  以上内容都配置完之后,在终端里执行如下命令
