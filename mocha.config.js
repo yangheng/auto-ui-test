@@ -13,8 +13,7 @@ exports.hooks = {
             return client.end()
         },
         beforeEach:function () {
-            currentTest += 1;
-            return client.url(cases[currentTest].url)
+
         },
         afterEach:function () {
 
@@ -31,8 +30,6 @@ exports.hooks = {
             return client.end()
         },
         beforeEach:function () {
-            currentTest += 1;
-            return client.url(cases[currentTest].url)
         },
         afterEach:function () {
 
