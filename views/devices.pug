@@ -1,0 +1,86 @@
+extends layout
+
+block append head
+    title= title
+    script(src='/javascripts/jquery.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
+
+    script(src='/javascripts/index.js')
+block content
+  .container
+
+      .row
+        .col.offset-10
+            button.btn.btn-success(data-toggle="modal" data-target="#myModal") 添加设备
+      h3 Android 设备
+      .row.table-inverse.itemWrap
+         .col 设备名
+         .col 设备系统
+         .col 设备udid
+
+      each device, index in android
+        .item
+            .row.itemWrap
+                .col #{device.deviceName}
+                .col #{device.platformVersion}
+                .col #{device.udid}
+      h3 iPhone 设备
+      .row.table-inverse.itemWrap
+
+          .col 设备名
+          .col 设备系统
+          .col 设备udid
+
+      each device, index in ios
+         .item
+            .row.itemWrap
+                     .col #{device.deviceName}
+                     .col #{device.platformVersion}
+                     .col #{device.udid}
+
+
+
+  .modal.fade(id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true")
+     .modal-dialog
+        .modal-content
+            .modal-body
+                .alert.alert-danger
+                form(method='POST' action='/devices' enctype='application/x-www-form-urlencoded')
+
+
+                    .form-group.row
+                        label.col-3.col-form-label 系统型号
+                        .col-8
+                            input.form-control(name="platformVersion")
+                    .form-group.row
+                        label.col-3.col-form-label 设备名
+                        .col-8
+                            input.form-control(name="deviceName")
+                    .form-group.row
+                        label.col-3.col-form-label 设备udid
+                        .col-8
+                            input.form-control(name="udid")
+
+
+
+                    .form-group.row
+                        label.col-3.col-form-label 设备平台
+                        .col-8
+
+                                .form-check.form-check-inline
+                                    label.form-check-label
+                                    input.form-check-input(type="radio" name="platform" id="platformName" value="android" )
+                                    span 安卓
+
+
+                                .form-check.form-check-inline
+                                    label.form-check-label
+                                    input.form-check-input(type="radio" name="platform" id="platformName" value="ios" checked="checked")
+                                    span iPhone
+
+                    .form-group.row
+                        button.btn.btn-success.btn-block(onclick='addDevice(event)') 提交
+
+
+
+

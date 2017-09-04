@@ -6,10 +6,10 @@ const path = require('path')
 const file = require('../utils/fileReader')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/')
+        cb(null, 'cases/')
     },
     filename: function (req, file, cb) {
-        cb(null,Date.now()+'-'+file.originalname)
+        cb(null,file.originalname)
     }
 })
 const upload = multer({storage})
@@ -22,8 +22,10 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/',upload.array('case'), function (req, res, next) {
+    res.set("Refresh","1;url=/")
+    res.render('success')
 
-    file.getFile(path.join(process.cwd(),'db.json')).then((data)=>{
+    /*file.getFile(path.join(process.cwd(),'db.json')).then((data)=>{
         let database = JSON.parse(data);
         writeToDb(database)
     },()=>{
@@ -45,7 +47,7 @@ router.post('/',upload.array('case'), function (req, res, next) {
             res.set("Refresh","1;url=/")
             res.render('success')
         })
-    }
+    }*/
     
 
 

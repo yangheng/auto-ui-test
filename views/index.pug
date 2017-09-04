@@ -13,30 +13,28 @@ block append head
 block content
   .container
       .alert.alert-danger 需要选择要执行的测试案例
-      form(method='POST' action='/start' )
+      form(method='POST' action='/start' enctype='application/x-www-form-urlencoded' )
         .row.table-inverse.itemWrap
             .col #
-            .col 测试案例
-            .col 测试设备
-            .col 测试目标
-            .col 测试项目
+            .col 文件名
             .col 操作
-            .col 加入
+            .col
+                label 全选
+                  input.selectAll(type='checkbox' name="type" value="all")
+
 
         each file, index in files
             .item
                 .row.itemWrap
                     .col #{index}
-                    .col #{file.name}
-                    .col #{file.platform}
-                    .col #{file.type}
-                    .col #{file.project}
+                    .col #{file.fileName}
+
                     .col
                        a(onclick='showCode(this)') 查看代码
                     .col
                        .form-check
                           label.form-check-label
-                            input(type='checkbox', name='case',value=`${file.filePath}` data-val= JSON.stringify(file))
+                            input(type='checkbox', name='case',value=`${file.fileName}` data-val= JSON.stringify(file))
 
                 .row
                     .codeWrap

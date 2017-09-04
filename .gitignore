@@ -6,4 +6,9 @@ log.json
 db.json
 report/
 wdio.log/*
-caseAddress.json
+screenshot/
+cases/
+test/*.js
+wdio.log/
+nohup.out
+

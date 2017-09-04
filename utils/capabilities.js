@@ -52,8 +52,8 @@ exports.devices={
         "623ef7ebc6d5e24f4a40059f82c9472ebd82f5ea":{
             "platformVersion": "10.3",
             "deviceName": "iPhone 7 Plus",
-            "udid":"623ef7ebc6d5e24f4a40059f82c9472ebd82f5ea"
-            
+            "udid":"623ef7ebc6d5e24f4a40059f82c9472ebd82f5ea",
+            "xcodeSigningId": "iPhone Developer"
         }
     }
 

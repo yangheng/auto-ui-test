@@ -21,17 +21,13 @@ const getFile = function(filePath) {
 exports.getCase = async function () {
 
     let cases =[];
+    let files =fs.readdirSync(path.join(process.cwd(),'cases')).filter(m=>/.*\.js$/.test(m));
 
     try{
-        let db =  await getFile(path.join(process.cwd(),'db.json'))
-        console.log(typeof db)
-        database = JSON.parse(db)
-        for(let i =0;i<database.length;i++){
-            let code= await getFile(database[i].filePath)
-            console.log(code)
-            cases.push(Object.assign({},database[i],{code}))
+        for(let i =0;i<files.length;i++){
+            let code= await getFile(path.join(process.cwd(),'cases',files[i]))
+            cases.push({fileName:files[i],code})
         }
-        console.log(cases)
         return cases
     }catch (err){
         console.log(err.message)
@@ -39,6 +35,10 @@ exports.getCase = async function () {
     }
 
 
+}
+
+exports.writeDevices = function (data) {
+    return fs.writeFileSync(path.join(process.cwd(),'utils','devices.json'),data,{encoding:'utf8'})
 }
 
 exports.getFile = getFile

@@ -359,7 +359,7 @@ class autoMateMac extends autoMate{
         try {
             let result= await subProcess(dev)
             console.log("result is" + result.stdout)
-            debugger;
+            
             if(result.stdout== "/Applications/Xcode.app/Contents/Developer\n")
                 return true;
             else
@@ -377,7 +377,7 @@ class autoMateMac extends autoMate{
         }
         try{
             let result= await subProcess(dev,true)
-            debugger;
+            
             return result;
         }catch (err){
             if(err.errno==='ENOENT'){

@@ -9,6 +9,7 @@ const index = require('./routes/index');
 const add = require('./routes/add')
 const start = require('./routes/start')
 const cases = require('./routes/cases')
+const devices = require('./routes/devices')
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/', index);
 app.use('/add', add)
 app.use('/start', start)
 app.use('/cases', cases)
+app.use('/devices', devices)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
