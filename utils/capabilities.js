@@ -34,12 +34,13 @@ exports.platform={
         "platformName": "iOS",
         "automationName":"XCUITest",
         "bundleId": "com.yunshipei.YSPExplorer",
-        "xcodeOrgId": "Y3333NF579",// 换成自己的xcode
-        "xcodeSigningId": "iPhone Developer",
         "startIWDP":true
     }
 }
-
+exports.xcodeOrg= {
+    "xcodeOrgId": "Y3333NF579",// 换成自己的xcode
+    "xcodeSigningId": "iPhone Developer",
+}
 exports.devices={
     "android":{
         "PBV7N16322001695":{

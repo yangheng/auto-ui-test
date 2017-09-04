@@ -6,7 +6,7 @@ const fs = require('fs');
 const os = require('os');
 const {spawn} = require('child_process')
 const util = require('util')
-
+const {xcodeOrg} = require('./capabilities')
 function subProcess(dev,cb=false) {
     var stdout;
     let pro = new Promise((resolve,reject)=>{
@@ -79,8 +79,21 @@ function bundleFile(fileName,body) {
 function mocha(file) {
     subProcess({'command':'mocha',args:[`./test/${file}`]})
 }
+function writeXcodeOrg() {
+    try{
+    if(!fs.existsSync("xcode.org.json")){
+        fs.writeFileSync("xcode.org.json",JSON.stringify(xcodeOrg),{encoding:"utf8"})
+    }
+    return true;
+    }catch (err){
+        console.log(err.message)
+        return false;
+    }
+
+}
 exports.subProcess = subProcess;
 exports.getDevices = getDevices;
 exports.fileExits = fileExits;
 exports.bundleFile = bundleFile;
 exports.mocha = mocha;
+exports.writeXcodeOrg = writeXcodeOrg;

@@ -10,4 +10,4 @@ screenshot/
 test/*.js
 wdio.log/
 nohup.out
-
+xcode.org.json

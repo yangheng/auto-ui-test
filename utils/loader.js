@@ -7,7 +7,7 @@ const args = process.argv.slice(2);
 const compile = require('./compile');
 const colors = require('colors')
 const devices = require('./devices.json')
-const {bundleFile,getDevices,fileExits,mocha} = require('./tools');
+const {bundleFile,getDevices,fileExits,mocha,writeXcodeOrg} = require('./tools');
 var config = {
     type:'',
     file:new Date().getTime()+'.js',
@@ -60,7 +60,8 @@ async function checkUSB() {
     }
 }
 function start() {
-    if(devices[config.udid]){
+    writeXcodeOrg();
+    if(devices[config.device.platform][config.device.udid]){
         let builder= new compile(config.type);
         builder
             .addWrapper()

@@ -54,6 +54,11 @@ exports.devices={
             "deviceName": "iPhone 7 Plus",
             "udid":"623ef7ebc6d5e24f4a40059f82c9472ebd82f5ea"
             
+        },
+        "faf2513b7b07aaa16446c2b5b3cd8c68979173f6":{
+            "platformVersion": "10.3",
+            "deviceName": "iPhone 7 Plus",
+            "udid":"623ef7ebc6d5e24f4a40059f82c9472ebd82f5ea"
         }
     }
 

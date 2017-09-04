@@ -4,7 +4,7 @@
 const fs = require('fs');
 const vm = require('vm');
 const path = require('path');
-const {platform} = require('./capabilities')
+const {platform,xcodeOrg} = require('./capabilities')
 const {hooks} = require('../mocha.config')
 class Tests {
     constructor(type="all"){
@@ -24,8 +24,13 @@ class Tests {
     addDriverInit(device){
         if(device.platform=="ios"){
             let xcodeConfig = {};
-            
-            this.children.push(`config.desiredCapabilities = Object.assign({},platform["${device.platform}"],devices["${device.platform}"]["${device.udid}"],{xcodeOrgId:"${xcodeConfig.xcodeOrgId}",xcodeSigningId:"${xcodeConfig.xcodeSigningId}")`);
+            if(fs.existsSync("xcode.org.json")){
+                xcodeConfig= require("../xcode.org.json");
+                console.log(xcodeConfig)
+            }else{
+                xcodeConfig= Object.assign({},xcodeOrg);
+            }
+            this.children.push(`config.desiredCapabilities = Object.assign({},platform["${device.platform}"],devices["${device.platform}"]["${device.udid}"],{xcodeOrgId:"${xcodeConfig.xcodeOrgId}",xcodeSigningId:"${xcodeConfig.xcodeSigningId}"})`);
         }else{
             this.children.push(`config.desiredCapabilities = Object.assign({},platform["${device.platform}"],devices["${device.platform}"]["${device.udid}"])`);
         }
