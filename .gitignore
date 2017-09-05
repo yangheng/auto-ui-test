@@ -8,6 +8,7 @@ report/
 wdio.log/*
 screenshot/
 test/*.js
+cases/
 wdio.log/
 nohup.out
 xcode.org.json

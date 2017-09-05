@@ -30,12 +30,13 @@ function myEval(type) {
    }
 }
 async function checkUSB() {
-    let devices = await getDevices(config.device.platform);
-    if(devices.size==0){
+    let current_devices = await getDevices(config.device.platform);
+    console.log(current_devices)
+    if(current_devices.size==0){
         _exit("没有检测到任何设备啊 ... \n重新检查一下设备吧")
     }
-    if(devices.size==2){
-        config.devices = devices ;
+    if(current_devices.size==2){
+        config.devices = current_devices ;
         repl.start({
             prompt:"输入要测试的设备系统(ios/android)>",
             eval:function (cmd,context,filename,callback) {
@@ -43,19 +44,20 @@ async function checkUSB() {
             }
         })
     }
-    if(devices.size==1){
-        if(config.device.platform && devices.get(config.device.platform)){
-            config.device.udid = devices.get(config.device.platform);
-            start()
-        }else{
-            if(config.device.platform){
-                _exit(`您要测试的是 ${config.device.platform},但是没有找到相关设备,请检查下参数是否有问题和设备`);
+    
+    if(current_devices.size==1){
+        console.log(current_devices.platform)
+        if(config.device.platform){
+            if(current_devices.get(config.device.platform)){
+                config.device.udid = current_devices.get(config.device.platform);
+                start();
             }else{
-                config.device.platform = devices.keys().next().value;
-                config.device.udid = devices.get(config.device.platform);
-                start()
+                _exit(`您要测试的是 ${config.device.platform},但是没有找到相关设备,请检查下参数是否有问题和设备`);
             }
-
+        }else{
+            config.device.platform = current_devices.keys().next().value;
+            config.device.udid = current_devices.get(config.device.platform);
+            start();
         }
     }
 }
@@ -113,7 +115,7 @@ async function loader() {
                     config.type = 'single';
                     config.file = args[0];
                     config.device.platform = args[1];
-                    start()
+                    checkUSB()
                 }else{
                     _exit("要测试的案例文件不存在啊,重新看下文件名是否正确");
                 }
