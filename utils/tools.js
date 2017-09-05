@@ -57,16 +57,16 @@ async function getDevices(platform) {
     if(platform){
         switch (platform){
             case 'ios':
-                let result=await subProcess({'command':'mobiledevice','args':['list_devices']})
-                if(result.stdout) {
-                    deviceList.set('ios', result.stdout.split('\n')[0])
+                let iosList=await subProcess({'command':'mobiledevice','args':['list_devices']})
+                if(iosList.stdout) {
+                    deviceList.set('ios', iosList.stdout.split('\n')[0])
                 }
                 break;
             case 'android':
 
-                let result=await subProcess({'command':'adb','args':['devices']})
-                if(result.stdout&&result.stdout.split('\n')[1].split('\t')[0]){
-                    deviceList.set('android',result.stdout.split('\n')[1].split('\t')[0])
+                let androidList=await subProcess({'command':'adb','args':['devices']})
+                if(androidList.stdout&&androidList.stdout.split('\n')[1].split('\t')[0]){
+                    deviceList.set('android',androidList.stdout.split('\n')[1].split('\t')[0])
 
                 }
                 break;
