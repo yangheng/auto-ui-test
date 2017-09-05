@@ -102,10 +102,15 @@ function mocha(file) {
 }
 function writeXcodeOrg() {
     try{
-    if(!fs.existsSync("xcode.org.json")){
-        fs.writeFileSync("xcode.org.json",JSON.stringify(xcodeOrg),{encoding:"utf8"})
-    }
-    return true;
+        if(!fs.existsSync("xcode.org.json")){
+            fs.writeFileSync("xcode.org.json",JSON.stringify(xcodeOrg),{encoding:"utf8"})
+        }
+        if(!fs.existsSync('mocha.config.js')){
+            let configFile=fs.createWriteStream('mocha.config.js');
+            fs.createReadStream('./utils/mocha.config.js').pipe(configFile);
+        }
+        return true;
+
     }catch (err){
         console.log(err.message)
         return false;

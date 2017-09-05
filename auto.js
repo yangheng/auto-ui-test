@@ -6,6 +6,7 @@ const os = require('os')
 const fs = require('fs')
 const path = require('path')
 const {spawn,exec,execFile} = require('child_process')
+const {writeXcodeOrg} = require('./utils/tools')
 const win32Url= {
     'maven': 'http://mirror.bit.edu.cn/apache/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.zip',
     'ant': 'https://mirrors.tuna.tsinghua.edu.cn/apache//ant/binaries/apache-ant-1.10.1-bin.zip',
@@ -14,41 +15,41 @@ const win32Url= {
 }
 const util = {
     error: function (msg) {
-        console.log('\x1b[31m%s\x1b[31m',`XXX ${msg}`)
+        console.log('\x1b[31m%s\x1b[31m\r',`XXX ${msg}`)
     },
     success:function (msg) {
-        console.log('\x1b[32m%s\x1b[32m',`√√√ ${msg}`)
+        console.log('\x1b[32m%s\x1b[32m\r',`√√√ ${msg}`)
     },
     info: function (msg) {
-        console.log('\x1b[33m%s\x1b[33m',`!!! ${msg}`)
+        console.log('\x1b[33m%s\x1b[33m\r',`!!! ${msg}`)
     }
 }
 
 const devDependence= {
     'common': [
         {
-            'command': 'cnpm', args:['install','gulp','-g']
+            'command': 'npm', args:['install','gulp','-g']
         },
         {
-            'command': 'cnpm', args:['install','appium-gulp-plugins','-g']
+            'command': 'npm', args:['install','appium-gulp-plugins','-g']
         },
         {
-            'command': 'cnpm',args:['install','appium','-g']
+            'command': 'npm',args:['install','appium','-g']
         },
         {
-            'command': 'cnpm',args:['install','appium-doctor','-g'] //check appium envirment
+            'command': 'npm',args:['install','appium-doctor','-g'] //check appium envirment
         },
         {
-            'command': 'cnpm',args:['install','mocha','-g']
+            'command': 'npm',args:['install','mocha','-g']
         }
     ],
     'darwin': [
         {
-            'command': 'cnpm' ,args:['install','ios-deploy','-g']
+            'command': 'npm' ,args:['install','ios-deploy','-g']
         },
 
         {
-            'command': 'cnpm',args:['install','authorize-ios','-g'] // use of ios simulator
+            'command': 'npm',args:['install','authorize-ios','-g'] // use of ios simulator
         },
         {
             'command':'brew',args:['install','libimobiledevice','--HEAD'] //iphone Communication
@@ -123,18 +124,10 @@ class autoMate {
         this.devLog= this.getLog();
     }
     async init(){
-        if(Object.keys(this.devLog).length==0){
-            let res = await subProcess({'command':'cnpm',args:['version']})
-
-            if(res.code&&res.code==0) return true;
-
-            await subProcess({
-                'command': 'npm',
-                'args': ['install','-g','cnpm','--registry=https://registry.npm.taobao.org']
-            })
-
-            return true;
-        }
+        //自定义测试案例文件
+        writeXcodeOrg();
+        
+        return true;
 
     }
     async installDependence(){
@@ -172,55 +165,76 @@ class autoMateMac extends autoMate{
         let result = await this.checkIosEnv()
         if(result){
             //替换个编译的文件
+            try{
+                await this.modifyWebDriver()
+                //安装成功可安装安卓相关依赖
+                let android= await this.checkAndroidEnv()
 
-            await this.modifyWebDriver()
-            //安装成功可安装安卓相关依赖
-            let android= await this.checkAndroidEnv()
+                if(!android){
+                    util.error('Android 环境安装失败');
+                    process.exit()
+                }
 
-            if(!android){
-               util.error('Android 环境安装失败');
-                process.exit()
+                await this.checkAndroidPath();
+
+                //覆盖一个文件
+                await this.modifyWebDriver()
+
+                //安装当前环境下的依赖包
+
+                await subProcess({'command':'npm',args:['install']})
+            }catch (err){
+                util.error(err.message);
             }
 
-            await this.checkAndroidPath();
-
-            //覆盖一个文件
-            await this.modifyWebDriver()
-
-            //安装当前环境下的依赖包
-
-            await subProcess({'command':'npm',args:['install']})
 
             //启动服务
 
-            await subProcess({'command':'appium',args:[]})
+            //await subProcess({'command':'appium',args:[]})
 
         }else{
             process.exit()
         }
     }
+    async autoXcode(globalPath) {
+        let file= await subProcess({'command': 'find',args:[path.join(globalPath,'appium'),'-name','UITestingUITests.m']})
+        if(file&&file.stdout){
+            await subProcess({'command':'cp',args:['-f','./override/UITestingUITests.m',file.stdout.match(/./g).join('')]})
+    }
+        let WebDriverAgentPath = path.join(globalPath,'appium','node_modules','appium-xcuitest-driver','WebDriverAgent')
+    process.chdir(WebDriverAgentPath)
+        await subProcess({'command':'mkdir','args':['-p','Resources/WebDriverAgent.bundle']})
+        await subProcess({'command':'./Scripts/bootstrap.sh','args':['-d']})
+        await subProcess({'command':'open','args':['WebDriverAgent.xcodeproj']})
+        process.chdir(this.env.PWD);
+    }
     async modifyWebDriver(){
-        let module_pwd= await subProcess({'command':'npm',args:['root','-g']})
-        console.log(module_pwd)
-        if(module_pwd){
-            let globalPath = module_pwd.stdout.match(/./g).join('')
-            let file= await subProcess({'command': 'find',args:[path.join(globalPath,'appium'),'-name','UITestingUITests.m']})
+        
 
-            if(file&&file.stdout){
-                await subProcess({'command':'cp',args:['-f','./override/UITestingUITests.m',file.stdout.match(/./g).join('')]})
+        //判断下node安装途径 nvm
+        try{
+            await subProcess({'command':'nvm',args:['ls']},true)
+            let _path = await subProcess({'command':'echo',args:['$PATH']});
+            try{
+                let nvmPath = _path.match(/./g).split(":").filter((path)=>path.indexOf(".nvm")!=-1)[0];
+                nvmPath = nvmPath.split('bin')[0];
+                this.autoXcode(path.join(nvmPath,'lib','node_modules'))
+            }catch (err){
+                util.error(err.message);
+                util.error("!!! 请将 override/UITestingUITests.m 替换 appium/node_modules/_appium-xcuitest-driver@2.43.2@appium-xcuitest-driver/WebDriverAgent/WebDriverAgentRunner/UITestingUITests.m")
+
             }
+        }catch (err){
+            if(err.errno === 'ENOENT'){
+                let module_pwd= await subProcess({'command':'npm',args:['root','-g']})
+                if(module_pwd.stdout){
+                    let globalPath = module_pwd.stdout.match(/./g).join('')
+                    this.autoXcode(globalPath)
+                }else{
+                    util.error("XXX 没有找得到npm root path")
 
-            let WebDriverAgentPath = path.join(globalPath,'appium','node_modules','appium-xcuitest-driver','WebDriverAgent')
-            process.chdir(WebDriverAgentPath)
-
-            await subProcess({'command':'mkdir','args':['-p','Resources/WebDriverAgent.bundle']})
-
-            await subProcess({'command':'./Scripts/bootstrap.sh','args':['-d']})
-
-            await subProcess({'command':'open','args':['WebDriverAgent.xcodeproj']})
-
-
-            process.chdir(this.env.PWD);
+                }
+            }
         }
 
     }

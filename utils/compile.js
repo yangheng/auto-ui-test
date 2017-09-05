@@ -26,7 +26,6 @@ class Tests {
             let xcodeConfig = {};
             if(fs.existsSync("xcode.org.json")){
                 xcodeConfig= require("../xcode.org.json");
-                console.log(xcodeConfig)
             }else{
                 xcodeConfig= Object.assign({},xcodeOrg);
             }
@@ -41,7 +40,7 @@ class Tests {
     addHooks(device){
 
         this.children.push(`describe('${device.platform} webview',function () {`);
-        this.children.push('try {\nvar casesAddress = JSON.parse(fs.readFileSync("./utils/casesAddress.json"));\nvar cases = casesAddress.cases;\nvar currentTest = -1;\nconsole.log(cases);\n} catch (e) {\nconsole.log(e);\n}\nthis.timeout(514229);')
+        this.children.push('try {\nthis.timeout(514229);\n')
         this.hooks.map(val=>{
             this.children.push(`${val}(${hooks[device.platform][val]})`);
         })

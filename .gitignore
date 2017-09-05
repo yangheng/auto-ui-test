@@ -12,3 +12,4 @@ cases/
 wdio.log/
 nohup.out
 xcode.org.json
+mocha.config.js
