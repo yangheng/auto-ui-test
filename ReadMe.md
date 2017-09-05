@@ -1,22 +1,79 @@
-# 工程说明
+# 自动化框架说明
 
-1.  mac 版支持自动化安装程序所依赖的库和软件包
-2.  windows 版由于需要手动设置环境变量和下载Android 相关软件包,所以设计成半自动化,不能自动执行的任务将以"提示"方式出现,指导安装过程
-3.  开发测试案例需要关注的目录
+1.  本项目是基于 [appium](http://appium.io/) 自动化测试框搭建,基于 [webdriver](http://webdriver.io) 交互协议实现与移动端通信.
+2.  测试案例用的JavaScript 的 [mocha](https://mochajs.org/) 测试框架编写
+3.  测试断言语法基于 [chai](http://chaijs.com/) 的 should 语法结构.
 
 
-    helpers   开发测试案例需要的相关文件
-        |--caps.js  测试设备的配置文件(根据不同的设备选择)
-    hooks     用来预处理poc和案例库 通用文件
-    report    用来显示测试分析报告
-    tests     用来存放测试案例文件
+####    Appium 介绍
+Appium 是基于 C/S 机构移动测试框架. 
+
+
+## 开发测试案例
+
+###   1.文件结构说明
+
+    mocha.config.js     mocha测试案例hooks管理文件(统一由测试人员唐连杰管理)
+    xcode.org.json      xcode 证书配置管理文件(仅限IOS测试)(详见后面说明)
+    case/               编写测试案例文件存放位置
+
+###   2. 测试案例书写规范
+
+```javascript
+
+    module.exports=function (client) {
+
+        describe('----- context',function () {
+
+            it('should list 3 contexts',function () {
+                return client.contexts().then(function (result) {
+                        console.log(result)
+                        return client.context(result.value[result.value.length - 1]);
+                        // console.log()
+                    })
+                    .getText('.case-box', 3000)
+                    .then(function(text){
+                        // console.log(text)
+                        text.should.be.equal('这里是案例的内容区')
+                        // return client.quit();
+                        // console.log(client.getSource())
+                    })
+                    .getText('.container', 3000)
+                    .then(function(text){
+                        // console.log(text)
+                        text.should.be.equal('这里是案例的内容区')
+                        // return client.quit();
+                        // console.log(client.getSource())
+                    })
+            })
+
+
+        })
+
+
+    }
+
+```
+
+#### 规范说明:
+
+     client :  webdriver 实例, 采用统一的命名规范.
+
+#### 相关开发文档参考
+ 1. API: [webdriver文档参考链接](http://webdriver.io/api.html)
+ 2. Mocha: [测试框架`Mocha`语法](https://mochajs.org/)
+ 3. 测试编写语法: [断言语法(推荐用`should`,当前项目使用should)](http://chaijs.com/)
+
 
 ## 自动安装说明
+1.  mac 版支持自动化安装程序所依赖的库和软件包
+2.  windows 版由于需要手动设置环境变量和下载Android 相关软件包,所以设计成半自动化,不能自动执行的任务将以"提示"方式出现,指导安装过程
+
  初次下载此项目之后,直接运行如下命令:
 ```
     npm run init
 ```
-##### 说明:
+#### 说明:
 
 1.程序会自动安装所有依赖和环境配置,如果安装都成功的话,会直接启动 appium 服务
 2.Appium安装路径为：
@@ -88,10 +145,3 @@ test
     |-- io.js // 测试用例
 ```
 
-# 参考链接
-
-[用例编写语法](http://webdriver.io/api.html)
-
-[断言语法(推荐用`should`,当前项目使用should)](http://chaijs.com/)
-
-[测试框架`Mocha`语法](https://mochajs.org/)

@@ -52,19 +52,40 @@ function subProcess(dev,cb=false) {
     })
     return pro
 }
-async function getDevices() {
+async function getDevices(platform) {
     let deviceList=new Map();
-    if(os.platform()=='darwin'){
-        let result=await subProcess({'command':'mobiledevice','args':['list_devices']})
-        if(result.stdout) {
-            deviceList.set('ios', result.stdout.split('\n')[0])
+    if(platform){
+        switch (platform){
+            case 'ios':
+                let result=await subProcess({'command':'mobiledevice','args':['list_devices']})
+                if(result.stdout) {
+                    deviceList.set('ios', result.stdout.split('\n')[0])
+                }
+                break;
+            case 'android':
+
+                let result=await subProcess({'command':'adb','args':['devices']})
+                if(result.stdout&&result.stdout.split('\n')[1].split('\t')[0]){
+                    deviceList.set('android',result.stdout.split('\n')[1].split('\t')[0])
+
+                }
+                break;
+
+        }
+    }else{
+        if(os.platform()=='darwin'){
+            let result=await subProcess({'command':'mobiledevice','args':['list_devices']})
+            if(result.stdout) {
+                deviceList.set('ios', result.stdout.split('\n')[0])
+            }
+        }
+        let result=await subProcess({'command':'adb','args':['devices']})
+        if(result.stdout&&result.stdout.split('\n')[1].split('\t')[0]){
+            deviceList.set('android',result.stdout.split('\n')[1].split('\t')[0])
+
         }
     }
-    let result=await subProcess({'command':'adb','args':['devices']})
-    if(result.stdout&&result.stdout.split('\n')[1].split('\t')[0]){
-        deviceList.set('android',result.stdout.split('\n')[1].split('\t')[0])
-
-    }
+    
     
     return deviceList;
 }

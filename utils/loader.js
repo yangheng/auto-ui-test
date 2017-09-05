@@ -30,7 +30,7 @@ function myEval(type) {
    }
 }
 async function checkUSB() {
-    let devices = await getDevices();
+    let devices = await getDevices(config.device.platform);
     if(devices.size==0){
         _exit("没有检测到任何设备啊 ... \n重新检查一下设备吧")
     }
@@ -87,16 +87,25 @@ async function loader() {
     switch (args.length){
         case 0 :
             config.type='all';
-            start();
+            checkUSB();
             break;
         case 1 :
-            if(fileExits(args[0])){
-                config.type = 'single';
-                config.file = args[0];
+            if(['ios','android'].indexOf(args[0])!=-1){
+                config.type='all';
+                config.device.platform = args[0];
                 checkUSB()
             }else{
-                _exit("要测试的案例文件不存在啊,重新看下文件名是否正确");
+                if(fileExits(args[0])){
+                    config.type = 'single';
+                    config.file = args[0];
+                    checkUSB()
+                }else{
+                    _exit("要测试的案例文件不存在啊,重新看下文件名是否正确");
+
+                }
             }
+
+
             break;
         case 2 :
             if(fileExits(args[0])){
