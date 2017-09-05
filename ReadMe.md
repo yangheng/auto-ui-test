@@ -20,7 +20,7 @@
 4.  MAC 下需要首先安装好Xcode 和 NodeJS
 5.  windows 下需要安装好JDK,Android Studio,Maven.
 
-####    Appium
+##  Appium
  1. Appium 是基于 C/S 机构移动测试框架.
 
  2. Appium 的核心是一个 web 服务器，它提供了一套 REST 的接口。它收到客户端的连接，监听到命令，接着在移动设备上执行这些命令，然后将执行结果放在 HTTP响应中返还给客户端
@@ -191,4 +191,3 @@ git@git.yunshipei.com:heng.yang/chromedriver.git
 将下载下来的内容全部拷贝到 appium 所安装目录里的/node_modules/appium-chromedriver/chromedriver/mac/
 
 覆盖掉即可.
-
