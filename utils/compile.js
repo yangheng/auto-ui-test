@@ -40,7 +40,7 @@ class Tests {
     addHooks(device){
 
         this.children.push(`describe('${device.platform} webview',function () {`);
-        this.children.push('try {\nthis.timeout(514229);\n')
+        this.children.push('\nthis.timeout(514229);\n')
         this.hooks.map(val=>{
             this.children.push(`${val}(${hooks[device.platform][val]})`);
         })
