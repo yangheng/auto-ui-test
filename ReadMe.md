@@ -5,7 +5,7 @@
 - [开发案例](#开发)
 - [执行测试案例](#执行测试案例)
 - [自动安装说明](#自动安装说明)
-- [启动Appium](#启动Appium)
+- [启动Appium](#启动appium)
 - [xcode配置](#xcode配置)
 - [替换chromedriver](#替换chromedriver)
 
@@ -37,7 +37,7 @@
 
 步骤如下:
 
-1.  [开启appium服务](#启动Appium)
+1.  [开启appium服务](#启动appium)
 2.  手动配置文件. 如果要在IOS上测试案例的话,需要修改 xcode.org.json 里面的xcodeOrgId 值需要[xcode帮助配置里面找到](#MAC环境手动配置内容). 如果再测试过程中需要修对案例做统一的操作,可以在mocha.config.js 修改对应的内容(即hooks).
 3.  开发测试案例. 所有的测试案例都放在 cases/目录下.案例必须是js文件,且都是以node module 方式导出函数.
 
