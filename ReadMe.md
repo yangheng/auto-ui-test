@@ -138,13 +138,19 @@
 
 *   Xcode打开 WebDriverAgent.xcodeproj 之后,首先要登录自己的appleID 在Xcode 导航栏里  Xcode->Preferences -> Account 或者快捷键 "command + ," 如下图:
 
+统一appleID  账号密码:
+
+***appleID: lianjie.tang@yunshipei.com***
+
+***pwd:    YUNshipei@2013***
+
 ![account](./md_resource/account.png)
 ![account](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/account.png)
 
 * Xcode 的运行测试设备 target 上选择 自己的手机如下图
 ![target](./md_resource/target.png)
 ![target](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/target.png)
-*  在 WebDriverAgentLib 和WebDriverAgentRunner (**切记两个都需要设置**)的General 面板上 选择 Automatically manage signing, Team 下拉选择框上选择自己的Development Team .
+*  在 WebDriverAgentLib 和WebDriverAgentRunner (**切记两个都需要设置**)的General 面板上 选择 Automatically manage signing, Team 下拉选择框上选择选择链接 唐 .
 如下图
 ![配置](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/xcode-config.png)
 ![配置](./md_resource/xcode-config.png)
@@ -153,10 +159,10 @@
 ![失败](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/xcode-facebook-fail.png)
 ![失败](./md_resource/xcode-facebook-fail.png)
 
-*   出现这种情况的时候需要打开 Build Settings 面板,把 Product Bundle Identifier 设置为 com.gome.webX(X=1,2....)
+*   出现这种情况的时候需要打开 Build Settings 面板,把 Product Bundle Identifier 设置为 com.yunshipei.lianjie
 如下图
-![bundle](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/xcode-bundle-id1.png)
-![bundle](./md_resource/xcode-bundle-id1.png)
+![bundle](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/bundle.png)
+![bundle](./md_resource/bundle.png)
 *   还是在Build Settings 面板,在Code Sign id 选项里 选中Debug 下的值,然后选择 other 设置为iPhone Developer 如下图:
 ![codeSign](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/codeSign.png)
 ![codeSign](./md_resource/codeSign.png)
@@ -165,7 +171,18 @@
 ![success](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/xcode-facebook-succeed.png)
 ![success](./md_resource/xcode-facebook-succeed.png)
 
+*   设置integrationAPP 的bundle id 为 com.yunshipei.lianjie,选择 Automatically manage signing, Team 下拉选择框上选择选择链接 唐 .
+
+ 如下图:
+
+ ![app](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/app.png)
+ ![app](./md_resource/app.png)
+
+
 3.  以上内容都配置完之后,在WebDriverAgent目录下,终端里执行如下命令
+(WebDriverAgent 目录在 全局 node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent)
+
+***注意: 如果测试机上已有webDriver app 可跳过此步***
 
 ```
 xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination 'id=<测试机的udid>' test
