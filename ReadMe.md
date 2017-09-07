@@ -7,6 +7,7 @@
 - [自动安装说明](#自动安装说明)
 - [启动Appium](#启动appium)
 - [xcode配置](#xcode配置)
+- [云端测试](#云端测试)
 - [替换chromedriver](#替换chromedriver)
 
 
@@ -148,8 +149,8 @@
 ![target](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/target.png)
 *  在 WebDriverAgentLib 和WebDriverAgentRunner (**切记两个都需要设置**)的General 面板上 选择 Automatically manage signing, Team 下拉选择框上选择选择链接 唐 .
 如下图
-![配置](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/xcode-config.png)
-![配置](./md_resource/xcode-config.png)
+![配置](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/config.png)
+![配置](./md_resource/config.png)
 
 *   在配置WebDriverAgentRunner 时候,Xcode 创建provisioning profile 可能会失败如下图:
 ![失败](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/xcode-facebook-fail.png)
@@ -208,3 +209,11 @@ git@git.yunshipei.com:heng.yang/chromedriver.git
 将下载下来的内容全部拷贝到 appium 所安装目录里的/node_modules/appium-chromedriver/chromedriver/mac/
 
 覆盖掉即可.
+
+
+##  云端测试
+    http://192.168.3.164:3000
+
+
+   *    测试设备统一在云端管理,由测试人员录入设置,同步代码到git上.
+   *    可将测试案例上传到服务器测试验证
