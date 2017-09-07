@@ -38,10 +38,6 @@
 步骤如下:
 
 1.  [开启appium服务](#启动appium)
-2.  修改xcode.org.json 里的 xcodeOrgId(仅MAC下). 在MAC 下 打开钥匙串助手 ,搜索 你的appleID ,找到对应的证书填入下图 第4步 红框里面的内容 .如下图:
-
-![key](./md_resource/key.png)
-![key](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/key.png)
 2.  修改hooks.如果再测试过程中需要修对案例做统一的操作,可以在mocha.config.js 修改对应的内容(即hooks).
 3.  开发测试案例. 所有的测试案例都放在 cases/目录下.案例必须是js文件,且都是以node module 方式导出函数.
 
