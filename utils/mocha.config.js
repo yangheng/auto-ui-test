@@ -10,7 +10,7 @@ exports.hooks = {
             })
         },
         after:function () {
-            return client.end()
+            //return client.end()
         },
         beforeEach:function () {
 
@@ -27,7 +27,7 @@ exports.hooks = {
             })
         },
         after:function () {
-            return client.end()
+            //return client.end()
         },
         beforeEach:function () {
         },

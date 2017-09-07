@@ -101,9 +101,9 @@
 *   target: 测试设备的操作系统,可选系统为 android 或者 ios
 
 1. npm run mocha    在已连接的设备上运行cases/所有测试案例
-2. npm run mocha mod.js 在已经连接的设备上运行cases/ 指定的文件(mod.js)
+2. npm run mocha webIO.js 在已经连接的设备上运行cases/ 指定的文件(webIO.js)
 3. npm run mocha ios 在IOS设备上运行cases/ 所有的测试案例
-4. npm run mocha mod.js ios 在IOS设备上运行cases/ 指定的文件(mod.js)
+4. npm run mocha webIO.js ios 在IOS设备上运行cases/ 指定的文件(webIO.js)
 
 
 ## 自动安装说明

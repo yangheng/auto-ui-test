@@ -166,25 +166,23 @@ class autoMateMac extends autoMate{
         if(result){
             //替换个编译的文件
             try{
+                //覆盖一个文件
                 await this.modifyWebDriver()
                 //安装成功可安装安卓相关依赖
                 let android= await this.checkAndroidEnv()
 
-                if(!android){
-                    util.error('Android 环境安装失败');
-                    process.exit()
+                if(android){
+
+                    await this.checkAndroidPath();
+
                 }
-
-                await this.checkAndroidPath();
-
-                //覆盖一个文件
-                await this.modifyWebDriver()
 
                 //安装当前环境下的依赖包
 
                 await subProcess({'command':'npm',args:['install']})
             }catch (err){
                 util.error(err.message);
+                process.exit()
             }
 
 
@@ -271,11 +269,19 @@ class autoMateMac extends autoMate{
 
     }
     async checkAndroidEnv(){
-        let isSdk= await this.checkSDK();
+        
+        let JDK = await this.checkJDK();
+        if(JDK){
+            let isSdk= await this.checkSDK();
+            return isSdk;
+        }else{
+            return false;
+        }
+
         //let isAnt= await this.checkAnt()
         //if(isSdk&&isAnt) return true
 
-        return isSdk;
+
     }
     async checkAndroidPath(){
 
@@ -363,7 +369,17 @@ class autoMateMac extends autoMate{
             }
         }
     }
+    async checkJDK(){
+        try{
+            let _JDK = await subProcess({command:'java',args:['-version']},true)
+            return true;
+        }catch (err){
+            if(err.errno === 'ENOENT'){
+                return false
+            }
+        }
 
+    }
 
     async checkXcode(){
         let dev = {
