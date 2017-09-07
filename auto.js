@@ -269,7 +269,7 @@ class autoMateMac extends autoMate{
 
     }
     async checkAndroidEnv(){
-        
+
         let JDK = await this.checkJDK();
         if(JDK){
             let isSdk= await this.checkSDK();
@@ -372,8 +372,9 @@ class autoMateMac extends autoMate{
     async checkJDK(){
         try{
             let _JDK = await subProcess({command:'java',args:['-version']},true)
-            return true;
+            return _JDK;
         }catch (err){
+
             if(err.errno === 'ENOENT'){
                 return false
             }
