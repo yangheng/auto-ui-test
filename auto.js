@@ -170,7 +170,7 @@ class autoMateMac extends autoMate{
                 await this.modifyWebDriver()
                 //安装成功可安装安卓相关依赖
                 let android= await this.checkAndroidEnv()
-
+                console.log(android)
                 if(android){
 
                     await this.checkAndroidPath();
@@ -179,7 +179,8 @@ class autoMateMac extends autoMate{
 
                 //安装当前环境下的依赖包
 
-                await subProcess({'command':'npm',args:['install']})
+                let _npm=await subProcess({'command':'npm',args:['install']});
+                console.log(_npm)
             }catch (err){
                 util.error(err.message);
                 process.exit()
@@ -205,6 +206,7 @@ class autoMateMac extends autoMate{
         await subProcess({'command':'./Scripts/bootstrap.sh','args':['-d']})
         await subProcess({'command':'open','args':['WebDriverAgent.xcodeproj']})
         process.chdir(this.env.PWD);
+        return true;
     }
     async modifyWebDriver(){
         
@@ -216,7 +218,8 @@ class autoMateMac extends autoMate{
             try{
                 let nvmPath = _path.match(/./g).split(":").filter((path)=>path.indexOf(".nvm")!=-1)[0];
                 nvmPath = nvmPath.split('bin')[0];
-                this.autoXcode(path.join(nvmPath,'lib','node_modules'))
+                let xcode =await this.autoXcode(path.join(nvmPath,'lib','node_modules'))
+                return xcode
             }catch (err){
                 util.error(err.message);
                 util.error("!!! 请将 override/UITestingUITests.m 替换 appium/node_modules/_appium-xcuitest-driver@2.43.2@appium-xcuitest-driver/WebDriverAgent/WebDriverAgentRunner/UITestingUITests.m")
@@ -227,7 +230,9 @@ class autoMateMac extends autoMate{
                 let module_pwd= await subProcess({'command':'npm',args:['root','-g']})
                 if(module_pwd.stdout){
                     let globalPath = module_pwd.stdout.match(/./g).join('')
-                    this.autoXcode(globalPath)
+                    let xcode = await this.autoXcode(globalPath)
+                    console.log(xcode);
+                    return xcode
                 }else{
                     util.error("XXX 没有找得到npm root path")
 
@@ -271,8 +276,10 @@ class autoMateMac extends autoMate{
     async checkAndroidEnv(){
 
         let JDK = await this.checkJDK();
+        console.log(JDK)
         if(JDK){
             let isSdk= await this.checkSDK();
+            console.log(isSdk)
             return isSdk;
         }else{
             return false;
@@ -308,7 +315,7 @@ class autoMateMac extends autoMate{
             }
         }
 
-
+        console.log(this.env.PWD)
         process.chdir(this.env.PWD);
 
         return true;
@@ -420,7 +427,10 @@ class autoMateMac extends autoMate{
                 if(!result) return false
 
                 return true;
+            }else{
+
             }
+
         }
     }
 
