@@ -137,9 +137,9 @@
 
 统一appleID  账号密码:
 
-***appleID: lianjie.tang@yunshipei.com***
+`***appleID: lianjie.tang@yunshipei.com***`
 
-***pwd:    YUNshipei@2013***
+`***pwd:    YUNshipei@2013***`
 
 ![account](./md_resource/account.png)
 ![account](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/account.png)
