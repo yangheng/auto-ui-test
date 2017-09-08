@@ -212,7 +212,7 @@ git@git.yunshipei.com:heng.yang/chromedriver.git
 
 
 ##  云端测试
-    http://192.168.3.164:3000
+    http://192.168.2.132:3000
 
 
    *    测试设备统一在云端管理,由测试人员录入设置,同步代码到git上.
