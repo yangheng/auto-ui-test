@@ -137,9 +137,9 @@
 
 统一appleID  账号密码:
 
-***appleID: lianjie.tang@yunshipei.com***
+***1appleID: `lianjie.tang@yunshipei.com`***
 
-***pwd:    YUNshipei@2013***
+***pwd:    `YUNshipei@2013`***
 
 ![account](./md_resource/account.png)
 ![account](https://git.yunshipei.com/core/auto-ui-test/raw/master/md_resource/account.png)
@@ -212,7 +212,7 @@ git@git.yunshipei.com:heng.yang/chromedriver.git
 
 
 ##  云端测试
-    http://192.168.3.164:3000
+    http://192.168.2.132:3000
 
 
    *    测试设备统一在云端管理,由测试人员录入设置,同步代码到git上.
