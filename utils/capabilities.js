@@ -39,7 +39,7 @@ exports.platform={
 }
 exports.xcodeOrg= {
     "xcodeOrgId": "637KCJ8B69",// 换成自己的xcode
-    "xcodeSigningId": "iPhone Developer",
+    "xcodeSigningId": "iPhone Developer"
 }
 exports.devices={
     "android":{

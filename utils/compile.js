@@ -23,12 +23,7 @@ class Tests {
     }
     addDriverInit(device){
         if(device.platform=="ios"){
-            let xcodeConfig = {};
-            if(fs.existsSync("xcode.org.json")){
-                xcodeConfig= require("../xcode.org.json");
-            }else{
-                xcodeConfig= Object.assign({},xcodeOrg);
-            }
+            let xcodeConfig= Object.assign({},xcodeOrg);
             this.children.push(`config.desiredCapabilities = Object.assign({},platform["${device.platform}"],devices["${device.platform}"]["${device.udid}"],{xcodeOrgId:"${xcodeConfig.xcodeOrgId}",xcodeSigningId:"${xcodeConfig.xcodeSigningId}"})`);
         }else{
             this.children.push(`config.desiredCapabilities = Object.assign({},platform["${device.platform}"],devices["${device.platform}"]["${device.udid}"])`);

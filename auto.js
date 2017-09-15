@@ -13,7 +13,7 @@ const win32Url= {
     'jdk': '',
     'sdk': ''
 }
-const util = {
+const _util = {
     error: function (msg) {
         console.log('\x1b[31m%s\x1b[31m\r',`XXX ${msg}`)
     },
@@ -31,13 +31,13 @@ const devDependence= {
             'command': 'npm', args:['install','gulp','-g']
         },
         {
-            'command': 'npm', args:['install','appium-gulp-plugins','-g']
+            'command': 'npm', args:['install','appium-gulp-plugins@2.1.5','-g']
         },
         {
-            'command': 'npm',args:['install','appium','-g']
+            'command': 'npm',args:['install','appium@1.6.5','-g']
         },
         {
-            'command': 'npm',args:['install','appium-doctor','-g'] //check appium envirment
+            'command': 'npm',args:['install','appium-doctor@1.4.3','-g'] //check appium envirment
         },
         {
             'command': 'npm',args:['install','mocha','-g']
@@ -45,7 +45,7 @@ const devDependence= {
     ],
     'darwin': [
         {
-            'command': 'npm' ,args:['install','ios-deploy','-g']
+            'command': 'npm' ,args:['install','ios-deploy@1.9.1','-g']
         },
 
         {
@@ -84,7 +84,7 @@ function subProcess(dev,cb=false) {
                 if (err.errno === 'ENOENT') {
                     msg = 'Command \'' + dev.command + '\' not found. Is it installed?';
                 }
-                util.error(msg);
+                _util.error(msg);
                 resolve(false);
             }
 
@@ -95,7 +95,7 @@ function subProcess(dev,cb=false) {
                 resolve({stdout,code})
             }else{
                 let msg = ('Command \'' + dev.command+" " +dev.args.join(" ")+ '\' exited with code ' + code);
-                util.error(msg);
+                _util.error(msg);
                 resolve(false)
             }
         })
@@ -107,7 +107,7 @@ function subProcess(dev,cb=false) {
         command.stderr.pipe(process.stdout)
         command.stderr.on('error',err=>{
             let msg= 'Standard error \'' + err.syscall + '\' error: ' + err.stack;
-            util.error(msg);
+            _util.error(msg);
             resolve(false);
         })
 
@@ -182,7 +182,7 @@ class autoMateMac extends autoMate{
                 let _npm=await subProcess({'command':'npm',args:['install']});
                 console.log(_npm)
             }catch (err){
-                util.error(err.message);
+                _util.error(err.message);
                 process.exit()
             }
 
@@ -221,8 +221,8 @@ class autoMateMac extends autoMate{
                 let xcode =await this.autoXcode(path.join(nvmPath,'lib','node_modules'))
                 return xcode
             }catch (err){
-                util.error(err.message);
-                util.error("!!! 请将 override/UITestingUITests.m 替换 appium/node_modules/_appium-xcuitest-driver@2.43.2@appium-xcuitest-driver/WebDriverAgent/WebDriverAgentRunner/UITestingUITests.m")
+                _util.error(err.message);
+                _util.error("!!! 请将 override/UITestingUITests.m 替换 appium/node_modules/_appium-xcuitest-driver@2.43.2@appium-xcuitest-driver/WebDriverAgent/WebDriverAgentRunner/UITestingUITests.m")
 
             }
         }catch (err){
@@ -234,7 +234,7 @@ class autoMateMac extends autoMate{
                     console.log(xcode);
                     return xcode
                 }else{
-                    util.error("XXX 没有找得到npm root path")
+                    _util.error("XXX 没有找得到npm root path")
 
                 }
             }
@@ -246,7 +246,7 @@ class autoMateMac extends autoMate{
 
         let xcodeEnable= await this.checkXcode()
         if(!xcodeEnable){
-            util.error("请先安装Xcode")
+            _util.error("请先安装Xcode")
             return false;
         }
 
@@ -259,16 +259,16 @@ class autoMateMac extends autoMate{
             this.setLog();
 
             if(isDep){
-                util.success("IOS 相关依赖已经安装完毕")
+                _util.success("IOS 相关依赖已经安装完毕")
 
                 return true
             }else {
-                util.error("依赖包安装失败")
+                _util.error("依赖包安装失败")
                 return false
             }
 
         }else{
-            util.error("brew install 失败了")
+            _util.error("brew install 失败了")
             return false
         }
 
@@ -310,7 +310,7 @@ class autoMateMac extends autoMate{
 
             if(!sourceCommand){
                 // 环境变量设置失败
-                util.error('Android 环境变量设置失败')
+                _util.error('Android 环境变量设置失败')
                 return false
             }
         }
@@ -340,13 +340,13 @@ class autoMateMac extends autoMate{
 
                 if(res){
 
-                    util.success(`android studio 已经下载到 ${tmpFile}`)
-                    util.info('安装 android-studio 过程中不要修改SDK的安装路径')
+                    _util.success(`android studio 已经下载到 ${tmpFile}`)
+                    _util.info('安装 android-studio 过程中不要修改SDK的安装路径')
                     let mount= await subProcess({
                         'command': "hdiutil",
                         'args': ['mount',tmpFile]
                     })
-                    util.error(`如果studio 没有自动安装成功!!,请手动安装,文件路径: ${tmpFile}`)
+                    _util.error(`如果studio 没有自动安装成功!!,请手动安装,文件路径: ${tmpFile}`)
 
                     return mount
                 }
@@ -403,7 +403,7 @@ class autoMateMac extends autoMate{
             else
                 return false
         }catch(err){
-            util.error(err.message)
+            _util.error(err.message)
             return false;
         }
     }
@@ -448,7 +448,7 @@ class autoMateWin extends autoMate{
         let isDep= await this.installDependence()
         this.setLog()
         if(!isDep) {
-            util.error("依赖包安装失败")
+            _util.error("依赖包安装失败")
             process.exit()
         }
 
@@ -494,7 +494,7 @@ class autoMateWin extends autoMate{
     async checkAnt(){
 
         if(this.env.Path.indexOf('ant')== -1){
-            util.error("系统未检测到Ant,请下载ant 并添加到path 环境变量")
+            _util.error("系统未检测到Ant,请下载ant 并添加到path 环境变量")
             this.envCheck.push({
                 'env':'ant',
                 'exist': false
@@ -527,7 +527,7 @@ class autoMateWin extends autoMate{
                     'exist': false
                 })
 
-                util.error('系统未检测到maven,请下载maven 并设置M2HOME 和 M2 环境变量')
+                _util.error('系统未检测到maven,请下载maven 并设置M2HOME 和 M2 环境变量')
 
             }
         }
@@ -551,7 +551,7 @@ class autoMateWin extends autoMate{
                     'env':'SDK',
                     'exist': false
                 })
-                util.error('系统未检测到Android SDK,请下载并安装Android Studio 并设置ANDROID_HOME 环境变量 并将 platform-tools 和 tools 添加到 path 环境变量中 ')
+                _util.error('系统未检测到Android SDK,请下载并安装Android Studio 并设置ANDROID_HOME 环境变量 并将 platform-tools 和 tools 添加到 path 环境变量中 ')
             }
         }
     }
@@ -560,7 +560,7 @@ class autoMateWin extends autoMate{
 
 function main() {
     const platform = os.platform()
-    util.info(platform)
+    _util.info(platform)
     var pc ;
     if(platform == 'darwin'){
         pc= new autoMateMac(platform)
